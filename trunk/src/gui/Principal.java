@@ -52,7 +52,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().add(intDesk, java.awt.BorderLayout.CENTER);
 
         mCadastro.setText("Cadastro");
-        iClientes.setText("Item");
+        iClientes.setText("Clientes");
         iClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 iClientesActionPerformed(evt);
