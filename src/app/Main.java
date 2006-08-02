@@ -5,7 +5,10 @@
  *
  */
 package app;
-import gui.*;
+import gui.Principal;
+import java.awt.Dimension;
+import javax.swing.UIManager;
+
 /**
  *
  * @author Fernando Dettoni
@@ -14,8 +17,17 @@ public class Main {
     
     /** Creates a new instance of Main */
     public static void main(String args[]) {
-        Splash splash = new Splash();
-        splash.setVisible(true);
+        javax.swing.UIManager.LookAndFeelInfo looks[];
+        looks = javax.swing.UIManager.getInstalledLookAndFeels();
+        try{
+        UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
+        } catch (Exception e) {
+        e.printStackTrace();
+        }
+        Principal principal = new Principal();
+        principal.setPreferredSize(new Dimension(700,500));
+        principal.pack();
+        principal.setVisible(true);
     }
     
 }
