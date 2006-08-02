@@ -20,7 +20,7 @@ public class Main {
         javax.swing.UIManager.LookAndFeelInfo looks[];
         looks = javax.swing.UIManager.getInstalledLookAndFeels();
         try{
-        UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
+        UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel(UmaCoisa));
         } catch (Exception e) {
         e.printStackTrace();
         }
