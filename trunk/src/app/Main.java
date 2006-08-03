@@ -20,8 +20,13 @@ public class Main {
         javax.swing.UIManager.LookAndFeelInfo looks[];
         looks = javax.swing.UIManager.getInstalledLookAndFeels();
         try{
-            UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
+            UIManager.setLookAndFeel(looks[0].getClassName());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+        new conSQL();}
+        catch (Exception e) {
             e.printStackTrace();
         }
         Principal principal = new Principal();
