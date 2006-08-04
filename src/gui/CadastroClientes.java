@@ -6,18 +6,48 @@
 
 package gui;
 
+import app.ConSQL;
+import empresa.Cliente;
 import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.GregorianCalendar;
 
 /**
  *
  * @author  Karina
  */
 public class CadastroClientes extends javax.swing.JPanel {
-    
+    private ConSQL con;
+    private Cliente atual;
     /** Creates new form CadastroClientes */
-    public CadastroClientes() {
+    public CadastroClientes(ConSQL con) {
+        this.con = con;
+        try {
+            atual = new Cliente(0, this.con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         initComponents();
+        setAtual();
         this.setPreferredSize(new Dimension(500,400));
+    }
+    public void setAtual() {
+        txtCode.setText(String.valueOf(atual.codigo));
+        chkAtivo.setSelected(atual.ativo);
+        txtNome.setText(atual.nome);
+        lblData.setText(atual.data);
+        txtFantasia.setText(atual.fantasia);
+        txtCPF.setText(atual.cpf);
+        txtRg.setText(atual.rg);
+        txtEndereco.setText(atual.endereco);
+        txtBairro.setText(atual.bairro);
+        txtNum.setText(atual.numero);
+        txtCidade.setText(atual.municipio);
+        txtEstado.setText(atual.estado);
+        txtCep.setText(atual.cep);
+        txtFone.setText(atual.fone1);
+        txtFone1.setText(atual.fone2);
+        txtEmail.setText(atual.email);       
     }
     
     /** This method is called from within the constructor to
@@ -27,7 +57,7 @@ public class CadastroClientes extends javax.swing.JPanel {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        nome = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
         lblEndereco = new javax.swing.JLabel();
         lblNum = new javax.swing.JLabel();
@@ -39,7 +69,6 @@ public class CadastroClientes extends javax.swing.JPanel {
         txtCode = new javax.swing.JTextField();
         chkAtivo = new javax.swing.JCheckBox();
         lblData = new javax.swing.JLabel();
-        txtData = new javax.swing.JTextField();
         lblFantasia = new javax.swing.JLabel();
         txtFantasia = new javax.swing.JTextField();
         lblCpfcnpj = new javax.swing.JLabel();
@@ -49,7 +78,7 @@ public class CadastroClientes extends javax.swing.JPanel {
         lblCidade = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         lblEstado = new javax.swing.JLabel();
-        tstExtado = new javax.swing.JTextField();
+        txtEstado = new javax.swing.JTextField();
         lblCep = new javax.swing.JLabel();
         txtCep = new javax.swing.JTextField();
         lblFoneFax = new javax.swing.JLabel();
@@ -59,6 +88,7 @@ public class CadastroClientes extends javax.swing.JPanel {
         txtEmail = new javax.swing.JTextField();
         btCancelar = new javax.swing.JButton();
         btGravar = new javax.swing.JButton();
+        lblDesde = new javax.swing.JLabel();
 
         setToolTipText("Cadastro de Clientes");
         setFocusable(false);
@@ -80,12 +110,12 @@ public class CadastroClientes extends javax.swing.JPanel {
         lblCode.setFocusable(false);
 
         txtCode.setText("0");
+        txtCode.setEnabled(false);
 
         chkAtivo.setText("Ativo");
         chkAtivo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         chkAtivo.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        lblData.setText("Data de Cadastro: ");
         lblData.setFocusable(false);
 
         lblFantasia.setText("Fantasia: ");
@@ -115,94 +145,102 @@ public class CadastroClientes extends javax.swing.JPanel {
         btCancelar.setText("Cancelar");
 
         btGravar.setText("Gravar");
+        btGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGravarActionPerformed(evt);
+            }
+        });
+
+        lblDesde.setText("Desde: ");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(lblFantasia)
-                .add(758, 758, 758))
-            .add(layout.createSequentialGroup()
-                .add(lblCpfcnpj)
-                .addContainerGap())
-            .add(layout.createSequentialGroup()
-                .add(lblEndereco)
-                .addContainerGap())
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblCode)
-                    .add(jLabel1)
-                    .add(lblBairro)
-                    .add(lblCidade)
-                    .add(lblCep)
-                    .add(lblEmail))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(layout.createSequentialGroup()
-                                .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 50, Short.MAX_VALUE)
-                                .add(chkAtivo)
-                                .add(64, 64, 64)
-                                .add(lblData)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(txtData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, nome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(txtFantasia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 81, Short.MAX_VALUE)
-                                .add(lblRg)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(txtRg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(txtEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtCidade)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtBairro, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 91, Short.MAX_VALUE)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(layout.createSequentialGroup()
-                                        .add(lblNum)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(txtNum, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(layout.createSequentialGroup()
-                                        .add(lblEstado)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(tstExtado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                .add(112, 112, 112)
-                                .add(lblFoneFax)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
-                                .add(txtFone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(txtFone1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 102, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(layout.createSequentialGroup()
-                                .add(btGravar)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(btCancelar)))
-                        .add(340, 340, 340))
+                        .add(lblFantasia)
+                        .add(418, 418, 418))
                     .add(layout.createSequentialGroup()
-                        .add(txtCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .add(lblCpfcnpj)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 410, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(lblEndereco)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 418, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblCode)
+                            .add(jLabel1)
+                            .add(lblBairro)
+                            .add(lblCidade)
+                            .add(lblCep)
+                            .add(lblEmail))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(layout.createSequentialGroup()
+                                    .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 64, Short.MAX_VALUE)
+                                    .add(chkAtivo)
+                                    .add(75, 75, 75)
+                                    .add(lblDesde)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(lblData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, txtNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(txtFantasia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                    .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 81, Short.MAX_VALUE)
+                                    .add(lblRg)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(txtRg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(txtEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, txtCidade)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 91, Short.MAX_VALUE)
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                        .add(layout.createSequentialGroup()
+                                            .add(lblNum)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(txtNum, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                        .add(layout.createSequentialGroup()
+                                            .add(lblEstado)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(txtEstado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                    .add(112, 112, 112)
+                                    .add(lblFoneFax)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
+                                    .add(txtFone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(txtFone1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 102, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(layout.createSequentialGroup()
+                                    .add(btGravar)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(btCancelar)))
+                            .add(layout.createSequentialGroup()
+                                .add(txtCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 297, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                .add(340, 340, 340))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
+                .add(42, 42, 42)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblCode)
-                    .add(lblData)
                     .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(txtData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(chkAtivo))
+                    .add(chkAtivo)
+                    .add(lblData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblDesde))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(nome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(txtNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblFantasia)
@@ -233,7 +271,7 @@ public class CadastroClientes extends javax.swing.JPanel {
                             .add(txtNum, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(tstExtado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(txtEstado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(lblEstado))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -250,9 +288,18 @@ public class CadastroClientes extends javax.swing.JPanel {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btCancelar)
                     .add(btGravar))
-                .addContainerGap(405, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btGravarActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_btGravarActionPerformed
+         GregorianCalendar gc = new GregorianCalendar();
+         lblData.setText(gc.get(gc.DAY_OF_MONTH)+"/"+gc.get(gc.MONTH)+"/"+gc.get(gc.YEAR));
+         Cliente cli = new Cliente(txtNome.getText(), chkAtivo.isSelected(), gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH), txtFantasia.getText(),
+                  txtCPF.getText(), txtRg.getText(), txtEndereco.getText(), txtBairro.getText(), 
+                  txtNum.getText(), txtCidade.getText(), txtEstado.getText(), txtCep.getText(), 
+                  txtFone.getText(), txtFone1.getText(), txtEmail.getText(), con);
+    }//GEN-LAST:event_btGravarActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -266,6 +313,7 @@ public class CadastroClientes extends javax.swing.JPanel {
     private javax.swing.JLabel lblCode;
     private javax.swing.JLabel lblCpfcnpj;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblDesde;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblEstado;
@@ -273,19 +321,18 @@ public class CadastroClientes extends javax.swing.JPanel {
     private javax.swing.JLabel lblFoneFax;
     private javax.swing.JLabel lblNum;
     private javax.swing.JLabel lblRg;
-    private javax.swing.JTextField nome;
-    private javax.swing.JTextField tstExtado;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtCode;
-    private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
+    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtFantasia;
     private javax.swing.JTextField txtFone;
     private javax.swing.JTextField txtFone1;
+    private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNum;
     private javax.swing.JTextField txtRg;
     // End of variables declaration//GEN-END:variables
