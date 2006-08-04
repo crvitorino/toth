@@ -17,6 +17,7 @@ public class Main {
     
     /** Creates a new instance of Main */
     public static void main(String args[]) {
+        Main main = new Main();
         javax.swing.UIManager.LookAndFeelInfo looks[];
         looks = javax.swing.UIManager.getInstalledLookAndFeels();
         try{
@@ -24,15 +25,17 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        ConSQL con =  null;
         try {
-        new conSQL();}
+        con = new ConSQL();}
         catch (Exception e) {
             e.printStackTrace();
         }
-        Principal principal = new Principal();
+        Principal principal = new Principal(con);
         principal.setPreferredSize(new Dimension(700,500));
         principal.pack();
         principal.setVisible(true);
     }
+    
     
 }

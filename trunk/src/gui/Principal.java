@@ -6,7 +6,7 @@
 
 package gui;
 
-import java.awt.Dimension;
+import app.ConSQL;
 import javax.swing.*;
 
 
@@ -19,7 +19,9 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    private ConSQL con;
+    public Principal(ConSQL con) {
+        this.con = con;
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
@@ -76,7 +78,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void iClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iClientesActionPerformed
-        CadastroClientes cad = new CadastroClientes();
+        CadastroClientes cad = new CadastroClientes(con);
         intClientes = new JInternalFrame("Cadastro de Clientes", true, true, true, true);
         intClientes.setContentPane(cad);
         intDesk.add(intClientes);
