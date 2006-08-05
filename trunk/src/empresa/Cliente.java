@@ -78,6 +78,8 @@ public class Cliente {
             Statement stmt = con.getStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
+            System.out.println(rs.getString(1));
+            System.out.println(String.valueOf(rs.getInt(1)));
             this.codigo = rs.getInt(1);
             this.nome = rs.getString(2);
             this.ativo = rs.getBoolean(3);
@@ -94,7 +96,6 @@ public class Cliente {
             this.fone1 = rs.getString(14);
             this.fone2 = rs.getString(15);
             this.email = rs.getString(16);
-            System.out.println(rs.getString(3));
         } catch (SQLException e){
             e.printStackTrace();
             

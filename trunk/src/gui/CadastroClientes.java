@@ -11,6 +11,7 @@ import empresa.Cliente;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.GregorianCalendar;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,17 +20,50 @@ import java.util.GregorianCalendar;
 public class CadastroClientes extends javax.swing.JPanel {
     private ConSQL con;
     private Cliente atual;
+    private int atualId;
     /** Creates new form CadastroClientes */
     public CadastroClientes(ConSQL con) {
+        //Bloco de conexão com SQL
         this.con = con;
         try {
-            atual = new Cliente(0, this.con);
+            atualId = 0;
+            atual = new Cliente(atualId, this.con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         initComponents();
+        if (CadastroClientes.class.getResource("/images/btOk.gif") != null) {
+            this.btGravar.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btOk.gif")));
+        } else {
+            this.btGravar.setText("Gravar"); 
+        }
+        if (CadastroClientes.class.getResource("/images/btCancelar.gif") != null) {
+            this.btCancelar.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btCancelar.gif")));
+        } else {
+            this.btCancelar.setText("Cancelar");
+        }
+        if (CadastroClientes.class.getResource("/images/btPrim.gif") != null) {
+            this.btPrim.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btPrim.gif")));
+        } else {
+            this.btPrim.setText("<|"); 
+        }
+        if (CadastroClientes.class.getResource("/images/btUlt.gif") != null) {
+            this.btUlt.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btUlt.gif")));
+        } else {
+            this.btUlt.setText("|>"); 
+        }
+        if (CadastroClientes.class.getResource("/images/btFlechaDir.gif") != null) {
+            this.btProx.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btFlechaDir.gif")));
+        } else {
+            this.btProx.setText(">"); 
+        }
+        if (CadastroClientes.class.getResource("/images/btFlechaEsq.gif") != null) {
+            this.btAnt.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btFlechaEsq.gif")));
+        } else {
+            this.btAnt.setText("<"); 
+        }
         setAtual();
-        this.setPreferredSize(new Dimension(500,400));
+        this.setPreferredSize(new Dimension(500,350));
     }
     public void setAtual() {
         txtCode.setText(String.valueOf(atual.codigo));
@@ -88,7 +122,11 @@ public class CadastroClientes extends javax.swing.JPanel {
         txtEmail = new javax.swing.JTextField();
         btCancelar = new javax.swing.JButton();
         btGravar = new javax.swing.JButton();
+        btPrim = new javax.swing.JButton();
         lblDesde = new javax.swing.JLabel();
+        btAnt = new javax.swing.JButton();
+        btProx = new javax.swing.JButton();
+        btUlt = new javax.swing.JButton();
 
         setToolTipText("Cadastro de Clientes");
         setFocusable(false);
@@ -110,7 +148,6 @@ public class CadastroClientes extends javax.swing.JPanel {
         lblCode.setFocusable(false);
 
         txtCode.setText("0");
-        txtCode.setEnabled(false);
 
         chkAtivo.setText("Ativo");
         chkAtivo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -142,16 +179,42 @@ public class CadastroClientes extends javax.swing.JPanel {
         lblEmail.setText("e-mail: ");
         lblEmail.setFocusable(false);
 
-        btCancelar.setText("Cancelar");
-
-        btGravar.setText("Gravar");
+        btGravar.setMnemonic('G');
+        btGravar.setToolTipText("Pressione para gravar o cliente atual");
+        btGravar.setDisabledIcon(new javax.swing.ImageIcon(""));
+        btGravar.setDisabledSelectedIcon(new javax.swing.ImageIcon(""));
+        btGravar.setPressedIcon(new javax.swing.ImageIcon(""));
         btGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGravarActionPerformed(evt);
             }
         });
 
+        btPrim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPrimActionPerformed(evt);
+            }
+        });
+
         lblDesde.setText("Desde: ");
+
+        btAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAntActionPerformed(evt);
+            }
+        });
+
+        btProx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProxActionPerformed(evt);
+            }
+        });
+
+        btUlt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btUltActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -219,18 +282,34 @@ public class CadastroClientes extends javax.swing.JPanel {
                                     .add(txtFone1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 102, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(layout.createSequentialGroup()
-                                    .add(btGravar)
+                                    .add(btGravar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(btCancelar)))
+                                    .add(btCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                             .add(layout.createSequentialGroup()
                                 .add(txtCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 297, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                 .add(340, 340, 340))
+            .add(layout.createSequentialGroup()
+                .add(31, 31, 31)
+                .add(btPrim)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btAnt)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btProx)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btUlt)
+                .addContainerGap(315, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(42, 42, 42)
+                .add(11, 11, 11)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(btPrim)
+                    .add(btAnt)
+                    .add(btProx)
+                    .add(btUlt))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblCode)
                     .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -286,11 +365,51 @@ public class CadastroClientes extends javax.swing.JPanel {
                     .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btCancelar)
-                    .add(btGravar))
-                .addContainerGap(107, Short.MAX_VALUE))
+                    .add(btCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btGravar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUltActionPerformed
+        try {
+            atualId = con.getLastIdCliente();
+            atual = new Cliente(atualId, this.con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setAtual();
+    }//GEN-LAST:event_btUltActionPerformed
+
+    private void btProxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProxActionPerformed
+        try {
+            atualId++;
+            atual = new Cliente(atualId, this.con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setAtual();
+    }//GEN-LAST:event_btProxActionPerformed
+
+    private void btAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAntActionPerformed
+        try {
+            atualId--;
+            atual = new Cliente(atualId, this.con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setAtual();
+    }//GEN-LAST:event_btAntActionPerformed
+
+    private void btPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrimActionPerformed
+        try {
+            atualId = 0;
+            atual = new Cliente(atualId, this.con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setAtual();
+    }//GEN-LAST:event_btPrimActionPerformed
 
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_btGravarActionPerformed
          GregorianCalendar gc = new GregorianCalendar();
@@ -303,8 +422,12 @@ public class CadastroClientes extends javax.swing.JPanel {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAnt;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btGravar;
+    private javax.swing.JButton btPrim;
+    private javax.swing.JButton btProx;
+    private javax.swing.JButton btUlt;
     private javax.swing.JCheckBox chkAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblBairro;
