@@ -9,7 +9,9 @@ package gui;
 import app.ConSQL;
 import empresa.Cliente;
 import java.awt.Dimension;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 
@@ -20,14 +22,21 @@ import javax.swing.ImageIcon;
 public class CadastroClientes extends javax.swing.JPanel {
     private ConSQL con;
     private Cliente atual;
-    private int atualId;
+    private ResultSet atualIds;
+    
     /** Creates new form CadastroClientes */
-    public CadastroClientes(ConSQL con) {
+    public CadastroClientes(ConSQL con){
         //Bloco de conexão com SQL
         this.con = con;
+        
         try {
-            atualId = 0;
-            atual = new Cliente(atualId, this.con);
+            atuaIds();
+            if (atualIds.first()){
+                atual = new Cliente(atualIds.getInt(1), con);
+            } else {
+                atual = new Cliente(con);
+            }
+                
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,6 +136,7 @@ public class CadastroClientes extends javax.swing.JPanel {
         btAnt = new javax.swing.JButton();
         btProx = new javax.swing.JButton();
         btUlt = new javax.swing.JButton();
+        btNovo = new javax.swing.JButton();
 
         setToolTipText("Cadastro de Clientes");
         setFocusable(false);
@@ -147,7 +157,7 @@ public class CadastroClientes extends javax.swing.JPanel {
         lblCode.setText("C\u00f3digo: ");
         lblCode.setFocusable(false);
 
-        txtCode.setText("0");
+        txtCode.setEnabled(false);
 
         chkAtivo.setText("Ativo");
         chkAtivo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -216,6 +226,13 @@ public class CadastroClientes extends javax.swing.JPanel {
             }
         });
 
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -227,10 +244,10 @@ public class CadastroClientes extends javax.swing.JPanel {
                         .add(418, 418, 418))
                     .add(layout.createSequentialGroup()
                         .add(lblCpfcnpj)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 410, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 411, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(lblEndereco)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 418, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 417, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(lblCode)
@@ -244,7 +261,7 @@ public class CadastroClientes extends javax.swing.JPanel {
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                 .add(layout.createSequentialGroup()
                                     .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 64, Short.MAX_VALUE)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 95, Short.MAX_VALUE)
                                     .add(chkAtivo)
                                     .add(75, 75, 75)
                                     .add(lblDesde)
@@ -254,7 +271,7 @@ public class CadastroClientes extends javax.swing.JPanel {
                                 .add(txtFantasia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                                     .add(txtCPF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 81, Short.MAX_VALUE)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 107, Short.MAX_VALUE)
                                     .add(lblRg)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                     .add(txtRg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -263,7 +280,7 @@ public class CadastroClientes extends javax.swing.JPanel {
                                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, txtCidade)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 174, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 91, Short.MAX_VALUE)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 125, Short.MAX_VALUE)
                                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                         .add(layout.createSequentialGroup()
                                             .add(lblNum)
@@ -276,7 +293,7 @@ public class CadastroClientes extends javax.swing.JPanel {
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                                     .add(112, 112, 112)
                                     .add(lblFoneFax)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 41, Short.MAX_VALUE)
                                     .add(txtFone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                     .add(txtFone1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 102, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -287,7 +304,7 @@ public class CadastroClientes extends javax.swing.JPanel {
                                     .add(btCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                             .add(layout.createSequentialGroup()
                                 .add(txtCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 297, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 312, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                 .add(340, 340, 340))
             .add(layout.createSequentialGroup()
                 .add(31, 31, 31)
@@ -298,7 +315,9 @@ public class CadastroClientes extends javax.swing.JPanel {
                 .add(btProx)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btUlt)
-                .addContainerGap(315, Short.MAX_VALUE))
+                .add(56, 56, 56)
+                .add(btNovo)
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -308,7 +327,8 @@ public class CadastroClientes extends javax.swing.JPanel {
                     .add(btPrim)
                     .add(btAnt)
                     .add(btProx)
-                    .add(btUlt))
+                    .add(btUlt)
+                    .add(btNovo))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblCode)
@@ -367,14 +387,19 @@ public class CadastroClientes extends javax.swing.JPanel {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(btGravar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        atual = new Cliente(con);
+        setAtual();
+    }//GEN-LAST:event_btNovoActionPerformed
+
     private void btUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUltActionPerformed
         try {
-            atualId = con.getLastIdCliente();
-            atual = new Cliente(atualId, this.con);
+            if (atualIds.last())
+                atual = new Cliente(atualIds.getInt(1), this.con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -383,8 +408,10 @@ public class CadastroClientes extends javax.swing.JPanel {
 
     private void btProxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProxActionPerformed
         try {
-            atualId++;
-            atual = new Cliente(atualId, this.con);
+            if (atualIds.next())
+                atual = new Cliente(atualIds.getInt(1), this.con);
+            else
+                atualIds.previous();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -393,8 +420,10 @@ public class CadastroClientes extends javax.swing.JPanel {
 
     private void btAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAntActionPerformed
         try {
-            atualId--;
-            atual = new Cliente(atualId, this.con);
+            if (atualIds.previous())
+                atual = new Cliente(atualIds.getInt(1), this.con);
+            else
+                atualIds.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -403,8 +432,8 @@ public class CadastroClientes extends javax.swing.JPanel {
 
     private void btPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrimActionPerformed
         try {
-            atualId = 0;
-            atual = new Cliente(atualId, this.con);
+            if (atualIds.first())
+                atual = new Cliente(atualIds.getInt(1), this.con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -418,13 +447,32 @@ public class CadastroClientes extends javax.swing.JPanel {
                   txtCPF.getText(), txtRg.getText(), txtEndereco.getText(), txtBairro.getText(), 
                   txtNum.getText(), txtCidade.getText(), txtEstado.getText(), txtCep.getText(), 
                   txtFone.getText(), txtFone1.getText(), txtEmail.getText(), con);
+         try{
+            atuaIds();
+            atualIds.last();
+            txtCode.setText(atualIds.getString(1));
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
+                
+         
     }//GEN-LAST:event_btGravarActionPerformed
-    
+    protected void atuaIds() throws SQLException {
+        try {
+            Statement stmt = con.getStatement();
+            atualIds = stmt.executeQuery("select id from clientes");
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAnt;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btGravar;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btPrim;
     private javax.swing.JButton btProx;
     private javax.swing.JButton btUlt;

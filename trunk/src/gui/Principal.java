@@ -38,8 +38,11 @@ public class Principal extends javax.swing.JFrame {
         menu = new javax.swing.JMenuBar();
         mCadastro = new javax.swing.JMenu();
         iClientes = new javax.swing.JMenuItem();
-        iCalc = new javax.swing.JMenuItem();
+        iprodutos = new javax.swing.JMenuItem();
+        ifornecedor = new javax.swing.JMenuItem();
         mMovimento = new javax.swing.JMenu();
+        mUtilitarios = new javax.swing.JMenu();
+        iCalc = new javax.swing.JMenuItem();
         mAjuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +59,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().add(intDesk, java.awt.BorderLayout.CENTER);
 
         mCadastro.setText("Cadastro");
-        iClientes.setText("Clientes");
+        iClientes.setText("Clientes/Fornecedores");
         iClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 iClientesActionPerformed(evt);
@@ -65,6 +68,24 @@ public class Principal extends javax.swing.JFrame {
 
         mCadastro.add(iClientes);
 
+        iprodutos.setText("Produtos");
+        mCadastro.add(iprodutos);
+
+        ifornecedor.setText("Fornecedor");
+        mCadastro.add(ifornecedor);
+
+        menu.add(mCadastro);
+
+        mMovimento.setText("Movimenta\u00e7\u00e3o");
+        menu.add(mMovimento);
+
+        mUtilitarios.setText("Utilit\u00e1rios");
+        mUtilitarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mUtilitariosActionPerformed(evt);
+            }
+        });
+
         iCalc.setText("Calculadora");
         iCalc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,12 +93,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        mCadastro.add(iCalc);
+        mUtilitarios.add(iCalc);
 
-        menu.add(mCadastro);
-
-        mMovimento.setText("Movimenta\u00e7\u00e3o");
-        menu.add(mMovimento);
+        menu.add(mUtilitarios);
 
         mAjuda.setText("Ajuda");
         menu.add(mAjuda);
@@ -86,6 +104,10 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mUtilitariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mUtilitariosActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_mUtilitariosActionPerformed
 
     private void iCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iCalcActionPerformed
         Calc calc = new Calc();
@@ -107,10 +129,13 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem iCalc;
     private javax.swing.JMenuItem iClientes;
+    private javax.swing.JMenuItem ifornecedor;
     private javax.swing.JDesktopPane intDesk;
+    private javax.swing.JMenuItem iprodutos;
     private javax.swing.JMenu mAjuda;
     private javax.swing.JMenu mCadastro;
     private javax.swing.JMenu mMovimento;
+    private javax.swing.JMenu mUtilitarios;
     private javax.swing.JMenuBar menu;
     private javax.swing.JLabel status1;
     // End of variables declaration//GEN-END:variables

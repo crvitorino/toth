@@ -57,8 +57,8 @@ public class Cliente {
         Statement stmt = con.getStatement();
         try {
             stmt.executeUpdate(sql);
-            ResultSet rs = stmt.executeQuery("select id from clientes");
-            while(rs.next()){}
+            ResultSet rs = stmt.executeQuery("select id from clientes where nome='"+nome+"'");
+            rs.next();
             this.codigo = rs.getInt(1);
             }
         catch (SQLException E) {
@@ -78,8 +78,6 @@ public class Cliente {
             Statement stmt = con.getStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            System.out.println(rs.getString(1));
-            System.out.println(String.valueOf(rs.getInt(1)));
             this.codigo = rs.getInt(1);
             this.nome = rs.getString(2);
             this.ativo = rs.getBoolean(3);
@@ -100,10 +98,11 @@ public class Cliente {
             e.printStackTrace();
             
         }
-        
-        
+      
     }
-        
+    public Cliente(ConSQL con) {
+        this.con = con;
+    }    
     
     
 }
