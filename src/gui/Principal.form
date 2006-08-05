@@ -11,12 +11,37 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="iClientes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Clientes"/>
+                <Property name="text" type="java.lang.String" value="Clientes/Fornecedores"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="iClientesActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="iprodutos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Produtos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ifornecedor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fornecedor"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mMovimento">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xe3;o"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mUtilitarios">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Utilit&#xe1;rios"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mUtilitariosActionPerformed"/>
+          </Events>
+          <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="iCalc">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Calculadora"/>
@@ -26,11 +51,6 @@
               </Events>
             </MenuItem>
           </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mMovimento">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xe3;o"/>
-          </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mAjuda">
           <Properties>
