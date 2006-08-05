@@ -38,6 +38,7 @@ public class Principal extends javax.swing.JFrame {
         menu = new javax.swing.JMenuBar();
         mCadastro = new javax.swing.JMenu();
         iClientes = new javax.swing.JMenuItem();
+        iCalc = new javax.swing.JMenuItem();
         mMovimento = new javax.swing.JMenu();
         mAjuda = new javax.swing.JMenu();
 
@@ -64,6 +65,15 @@ public class Principal extends javax.swing.JFrame {
 
         mCadastro.add(iClientes);
 
+        iCalc.setText("Calculadora");
+        iCalc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iCalcActionPerformed(evt);
+            }
+        });
+
+        mCadastro.add(iCalc);
+
         menu.add(mCadastro);
 
         mMovimento.setText("Movimenta\u00e7\u00e3o");
@@ -77,6 +87,13 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void iCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iCalcActionPerformed
+        Calc calc = new Calc();
+        intDesk.add(calc);
+        calc.pack();
+        calc.setVisible(true);
+    }//GEN-LAST:event_iCalcActionPerformed
+
     private void iClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iClientesActionPerformed
         CadastroClientes cad = new CadastroClientes(con);
         intClientes = new JInternalFrame("Cadastro de Clientes", true, true, true, true);
@@ -88,6 +105,7 @@ public class Principal extends javax.swing.JFrame {
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem iCalc;
     private javax.swing.JMenuItem iClientes;
     private javax.swing.JDesktopPane intDesk;
     private javax.swing.JMenu mAjuda;

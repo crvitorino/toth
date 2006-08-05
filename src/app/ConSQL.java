@@ -48,6 +48,21 @@ public class ConSQL{
           e.printStackTrace();
       }
         
+        
     }
-    
+    public int getLastIdCliente() throws SQLException{
+        try {
+            String sql = "select id from clientes"; 
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {}
+            rs.previous();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
+
+    
+
