@@ -5,11 +5,8 @@
  *
  */
 package app;
-import gui.Principal;
-import java.awt.Dimension;
-import java.security.NoSuchAlgorithmException;
+import gui.Login;
 import javax.swing.UIManager;
-import utils.CriptoUtils;
 
 /**
  *
@@ -19,6 +16,7 @@ public class Main {
     
     /** Creates a new instance of Main */
     public static void main(String args[]) {
+        
         Main main = new Main();
         javax.swing.UIManager.LookAndFeelInfo looks[];
         looks = javax.swing.UIManager.getInstalledLookAndFeels();
@@ -33,10 +31,10 @@ public class Main {
         catch (Exception e) {
             e.printStackTrace();
         }
-        Principal principal = new Principal(con);
-        principal.setPreferredSize(new Dimension(700,500));
+        Login principal = new Login(con);
         principal.pack();
         principal.setVisible(true);
+
     }
     
     

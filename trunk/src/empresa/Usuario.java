@@ -8,13 +8,12 @@
 package empresa;
 
 import app.ConSQL;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import utils.CriptoUtils; 
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import utils.Funcoes;
 
 /**
  *
@@ -26,26 +25,12 @@ public class Usuario {
     ConSQL con;
     
     /** Creates a new instance of Usuario */
-    public Usuario(String data, String nome, String usuario, String cargo, String senha, ConSQL con) {
+    public Usuario(String data, String nome, String usuario, String cargo, String pass, ConSQL con) {
         this.nome = nome;
         this.data = data;
         this.usuario = usuario;
         this.cargo = cargo;
-        this.senha = senha;
-        byte[] b = new byte[32];
-        try {
-           b = CriptoUtils.digest(senha.getBytes(), "md5");  
-        } catch (NoSuchAlgorithmException e){
-            e.printStackTrace();            
-        }
-        this.senha = CriptoUtils.byteArrayToHexString(b);
-                
-        this.con = con;
-        try {
-            gravarDadosNovo();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.senha = Funcoes.criptografaSenha(pass);
         
     }
     public void gravarDadosNovo() throws SQLException{
@@ -109,25 +94,8 @@ public class Usuario {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-    public void setSenha(String Senha) {
-        /*byte[] b = new byte[32];
-        try {
-           b = CriptoUtils.digest(senha.getBytes(), "md5");  
-        } catch (NoSuchAlgorithmException e){
-            e.printStackTrace();            
-        }
-        String teste = new String(b);
-        this.senha = CriptoUtils.byteArrayToHexString(b);    */
-         String hashword = null;
-        try {
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            md5.update(senha.getBytes());
-            BigInteger hash = new BigInteger(1, md5.digest());
-            hashword = hash.toString(16);
-        } catch (NoSuchAlgorithmException nsae) {
-            // ignore
-        }
-            this.senha = hashword;
+    public void setSenha(String pass) {
+         this.senha = Funcoes.criptografaSenha(pass);
 
     }
     public void update() throws SQLException{
@@ -141,6 +109,7 @@ public class Usuario {
 	}
         
     }
+
     
 
     

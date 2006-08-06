@@ -6,15 +6,29 @@
 
 package gui;
 
+import app.ConSQL;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import utils.Funcoes;
+
 /**
  *
  * @author  fernando
  */
 public class Login extends javax.swing.JFrame {
+    ConSQL con;
     
     /** Creates new form Login */
-    public Login() {
+    public Login(ConSQL con) {
+        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
+        this.con = con;
         initComponents();
+        setLocation((tela.width-this.getSize().width)/2,
+                      (tela.height-this.getSize().height)/2);
     }
     
     /** This method is called from within the constructor to
@@ -28,7 +42,7 @@ public class Login extends javax.swing.JFrame {
         lblSenha = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
-        txtSenha = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JPasswordField();
         btEntrar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
 
@@ -41,6 +55,15 @@ public class Login extends javax.swing.JFrame {
         lblTitulo.setText("Toth Gest\u00e3o Comercial");
 
         btEntrar.setText("Entrar");
+        btEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+			btEntrarActionPerformed(evt);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +120,40 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) throws  Throwable{//GEN-FIRST:event_btEntrarActionPerformed
+        String sql = "select * from Usuarios where usuario='"+txtUser.getText()+"'";
+        this.con = con;
+        String senhaBanco = null;
+        try {
+            Statement stmt = con.getStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            senhaBanco = rs.getString("senha");
+        } catch (SQLException e) {
+            
+        }
+        String senha = new String(txtSenha.getPassword());
+        String senhaEncr = Funcoes.criptografaSenha(senha);
+        if (senhaEncr.equals(senhaBanco)){
+            Principal principal = new Principal(con);
+            principal.setPreferredSize(new Dimension(700,500));
+            principal.pack();
+            principal.setVisible(true);
+            try {
+                this.finalize();
+            } catch (Throwable e){
+            e.printStackTrace();
+        }
+        } else {
+            JOptionPane.showMessageDialog(null, "A senha ou o usuario digitado está incorreto. Digite novamente", "Senha incorreta", JOptionPane.WARNING_MESSAGE);
+            txtUser.setText("");
+            txtSenha.setText("");
+            
+        }
+            
+        
+    }//GEN-LAST:event_btEntrarActionPerformed
+
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btCancelarActionPerformed
@@ -111,7 +168,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUser;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
     
