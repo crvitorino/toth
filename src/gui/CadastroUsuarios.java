@@ -370,15 +370,16 @@ public class CadastroUsuarios extends JPanel{
             if(action == JOptionPane.CANCEL_OPTION || action == JOptionPane.CLOSED_OPTION)
                 JOptionPane.showMessageDialog(this,"Cancelar, X ou tecla Esc pressionada");
             else
-                senha2 = new String(pass.getPassword());
+                senha2 = new String(pass2.getPassword());
         }
-        if (senha1.equals(senha2) && senha1 != null) {
-            atual.setSenha(senha1);
-            try {
-                atual.update();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        if (senha1 != null && senha2 != null)
+            if (senha1.equals(senha2)) {
+                atual.setSenha(senha1);
+                try {
+                    atual.update();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
         } else
             JOptionPane.showMessageDialog(this,"As senhas não conferem.");
         
