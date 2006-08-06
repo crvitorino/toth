@@ -7,7 +7,9 @@
 package app;
 import gui.Principal;
 import java.awt.Dimension;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.UIManager;
+import utils.CriptoUtils;
 
 /**
  *

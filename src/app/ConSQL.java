@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author Fernando Dettoni
  */
 public class ConSQL{
-    final String url = "jdbc:hsqldb:c:/db/toth";
+    final String url = "jdbc:hsqldb:/home/fernando/java/toth/db/toth";
     final String driver = "org.hsqldb.jdbcDriver";
     final String user = "sa";
     final String password = "";

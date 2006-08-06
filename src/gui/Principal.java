@@ -40,6 +40,7 @@ public class Principal extends javax.swing.JFrame {
         iClientes = new javax.swing.JMenuItem();
         iprodutos = new javax.swing.JMenuItem();
         ifornecedor = new javax.swing.JMenuItem();
+        iUsuarios = new javax.swing.JMenuItem();
         mMovimento = new javax.swing.JMenu();
         mUtilitarios = new javax.swing.JMenu();
         iCalc = new javax.swing.JMenuItem();
@@ -74,6 +75,15 @@ public class Principal extends javax.swing.JFrame {
         ifornecedor.setText("Fornecedor");
         mCadastro.add(ifornecedor);
 
+        iUsuarios.setText("Usu\u00e1rios");
+        iUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iUsuariosActionPerformed(evt);
+            }
+        });
+
+        mCadastro.add(iUsuarios);
+
         menu.add(mCadastro);
 
         mMovimento.setText("Movimenta\u00e7\u00e3o");
@@ -105,8 +115,17 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void iUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iUsuariosActionPerformed
+        CadastroUsuarios cad = new CadastroUsuarios(con);
+        intUsuarios = new JInternalFrame("Cadastro de usuários", true, true, true, true);
+        intUsuarios.setContentPane(cad);
+        intDesk.add(intUsuarios);
+        intUsuarios.pack();
+        intUsuarios.setVisible(true);
+    }//GEN-LAST:event_iUsuariosActionPerformed
+
     private void mUtilitariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mUtilitariosActionPerformed
-// TODO add your handling code here:
+        
     }//GEN-LAST:event_mUtilitariosActionPerformed
 
     private void iCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iCalcActionPerformed
@@ -129,6 +148,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem iCalc;
     private javax.swing.JMenuItem iClientes;
+    private javax.swing.JMenuItem iUsuarios;
     private javax.swing.JMenuItem ifornecedor;
     private javax.swing.JDesktopPane intDesk;
     private javax.swing.JMenuItem iprodutos;
@@ -140,4 +160,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel status1;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JInternalFrame intClientes;
+    private javax.swing.JInternalFrame intUsuarios;
 }

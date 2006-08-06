@@ -19,7 +19,6 @@
  */
 
 package gui;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -31,17 +30,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
-import componentes.JLabelPad;
-import componentes.JPanelPad;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import java.awt.Container;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-import funcoes.Funcoes;
-
-public class Calc extends FFilho implements KeyListener, ActionListener {
+public class Calc extends JInternalFrame implements KeyListener, ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -76,15 +76,15 @@ public class Calc extends FFilho implements KeyListener, ActionListener {
 	JButton btPot = new JButton("x^x");
 	JButton btAlt = new JButton("+/-");
 	JButton btBac = new JButton("Back");
-	JLabelPad lbMemo = new JLabelPad(" "); 
-	JPanelPad pnTeclas = new JPanelPad(JPanelPad.TP_JPANEL);
-	JPanelPad pnTeclas1 = new JPanelPad(JPanelPad.TP_JPANEL);
-	JPanelPad pnTeclas2 = new JPanelPad(JPanelPad.TP_JPANEL);
-	JPanelPad pnTeclas3 = new JPanelPad(JPanelPad.TP_JPANEL);
-	JPanelPad pnTeclas4 = new JPanelPad(JPanelPad.TP_JPANEL);
-	JPanelPad pnTeclas5 = new JPanelPad(JPanelPad.TP_JPANEL);
-	JPanelPad pnTeclas6 = new JPanelPad(JPanelPad.TP_JPANEL); 
-	JPanelPad pnTeclas7 = new JPanelPad(JPanelPad.TP_JPANEL);
+	JLabel lbMemo = new JLabel(" "); 
+	JPanel pnTeclas = new JPanel();
+	JPanel pnTeclas1 = new JPanel();
+	JPanel pnTeclas2 = new JPanel();
+	JPanel pnTeclas3 = new JPanel();
+	JPanel pnTeclas4 = new JPanel();
+	JPanel pnTeclas5 = new JPanel();
+	JPanel pnTeclas6 = new JPanel(); 
+	JPanel pnTeclas7 = new JPanel();
 	GridLayout glTeclas = new GridLayout( 1, 4);
 	String dg = "";
 	double ret = 0;
@@ -108,7 +108,9 @@ public class Calc extends FFilho implements KeyListener, ActionListener {
 	boolean Esc = false;
 	int esp = 32;
 	public Calc() {
-		super(false);
+		//super(false);
+                super("Calculadora", true, true, true, true);
+                setClosable(true);
 		Container c = getContentPane();
 		txaCalc.setEnabled(false);
 		txtRes.setEnabled(false);
@@ -265,6 +267,28 @@ public class Calc extends FFilho implements KeyListener, ActionListener {
 		setTitulo("Calculadora");
 		setAtribos( 50, 50, 310, 390);
 	}
+        public void setTitulo(String tit) {
+            if (getName() == null)
+                setName(tit);
+            setTitle(tit);
+        }
+        public void setAtribos(int esq, int topo, int larg, int alt) {
+    	int altPrinc = 0;
+    	int largPrinc = 0;
+    	
+//    	altAnt = alt;  // Guarda a altura anterior para acertar o painel principal
+//    	largAnt = larg; // Guarda a largura anteriror para acertar o painel principal
+    	
+    	if ( (altPrinc<(topo+alt)) || (largPrinc<(esq+larg)) ) {
+    		esq = 0;
+    		topo = 0;
+    		larg = largPrinc;
+    		alt = altPrinc;
+    	}
+    	//spCliente.setBounds(0,0, larg, alt);
+        this.setBounds(esq, topo, larg-3, alt-3);
+
+    }
 
 	public void actionPerformed(ActionEvent evt) { 
 		((JButton)evt.getSource()).requestFocus();		
@@ -397,7 +421,7 @@ public class Calc extends FFilho implements KeyListener, ActionListener {
 		else if (dg == "C") limpar();
 		else if (dg == "%") {
 			if (res == 0) {
-				Funcoes.mensagemErro(this, "Não é possível obter percentagem de \"0\" !");
+				JOptionPane.showMessageDialog(null, "Não é possível obter percentagem de \"0\" !", "Erro", JOptionPane.ERROR_MESSAGE);
 				limpar();
 			}
 			else {
@@ -420,7 +444,7 @@ public class Calc extends FFilho implements KeyListener, ActionListener {
 			else if (mult) { men = res; multiplicar = true; mult = false; vi = true; reg(false, "*"); }
 			else if (div) { 
 				if ( res == 0 ) {
-					Funcoes.mensagemInforma( this, "Não é possível dividir \"0\" !");
+					JOptionPane.showMessageDialog(null, "Não é possível dividir \"0\" !", "Informação", JOptionPane.INFORMATION_MESSAGE);
 					limpar();
 				} 
 				else {
