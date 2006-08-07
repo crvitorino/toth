@@ -5,7 +5,10 @@
  *
  */
 package app;
+import app.ConSQL;
+import app.Main;
 import gui.Login;
+import gui.Principal;
 import javax.swing.UIManager;
 
 /**
@@ -31,7 +34,7 @@ public class Main {
         catch (Exception e) {
             e.printStackTrace();
         }
-        Login principal = new Login(con);
+        Principal principal = new Principal(con);
         principal.pack();
         principal.setVisible(true);
 

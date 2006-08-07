@@ -6,7 +6,11 @@
  */
 
 package app;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
+import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,16 +18,24 @@ import javax.swing.JOptionPane;
  * @author Fernando Dettoni
  */
 public class ConSQL{
-    final String url = "jdbc:hsqldb:/home/fernando/java/toth/db/toth";
-    final String driver = "org.hsqldb.jdbcDriver";
-    final String user = "sa";
-    final String password = "";
+    private String url = "jdbc:hsqldb:";
+    private String driver = "org.hsqldb.jdbcDriver";
+    private String user;
+    private String password;
+    private String os;
     private Connection con;
     private Statement stmt;
+    private String path;
     /**
      * Creates a new instance of ConSQL
      */
-    public ConSQL() throws ClassNotFoundException, SQLException{
+    public ConSQL() throws ClassNotFoundException, SQLException, IOException{
+      try {
+        getConfig(); 
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      
       try {
       Class.forName(driver);
       } catch (ClassNotFoundException e) {
@@ -36,6 +48,7 @@ public class ConSQL{
       } catch (Exception e) {
           e.printStackTrace();
       }
+      
         
     }
     public Statement getStatement(){
@@ -62,6 +75,80 @@ public class ConSQL{
             e.printStackTrace();
         }
         return -1;
+    }
+    public void getConfig() throws IOException{
+        int numLinhas = 0;
+        String[] strLinhas = new String[5];
+        BufferedReader stdin = null;
+       
+        try {
+            stdin = new BufferedReader (
+                                   new FileReader("config.ini"));
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erro de entrada/saida ao ler o arquivo config.ini.", "Erro de Entrada/Saida", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        for (int i = 0; i<=4; i++) {
+            strLinhas[i] = stdin.readLine();
+            if (strLinhas[i] != null)
+                numLinhas++;
+        }
+        if (!strLinhas[0].equals("[DB Config]") || (numLinhas != 5)) {
+            JOptionPane.showMessageDialog(null, "O arquivo config.ini não é válido.", "Erro de Arquivo", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        StringTokenizer stOs = new StringTokenizer(strLinhas[1], "=");
+        StringTokenizer stDb = new StringTokenizer(strLinhas[2], "=");
+        StringTokenizer stUser = new StringTokenizer(strLinhas[3], "=");
+        StringTokenizer stPassword = new StringTokenizer(strLinhas[4], "=");
+        if (!(stOs.countTokens() == 2) || !(stDb.countTokens() == 2) || !(stUser.countTokens() == 2) || (!(stPassword.countTokens() == 1) && !(stPassword.countTokens() == 2))) {
+            JOptionPane.showMessageDialog(null, "O arquivo config.ini não é válido.", "Erro de Arquivo", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        
+        if (stOs.nextToken().equals("OS")) 
+            os = stOs.nextToken();
+        else { 
+            JOptionPane.showMessageDialog(null, "Não encontrado tag OS", "Erro em arquivo.", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        
+        if (stDb.nextToken().equals("DB")) {
+            if (os.equals("linux")){
+                path = stDb.nextToken();
+                url+=path;
+            } else if (os.equals("windows")) {
+                path = stDb.nextToken();
+                url+="file:"+path;                 
+            } else {
+                JOptionPane.showMessageDialog(null, "OS Desconhecido", "Erro em arquivo config.ini.", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Não encontrado tag DB", "Erro em arquivo config.ini.", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        
+        if (stUser.nextToken().equals("USER")) {
+            user = stUser.nextToken();
+        } else {
+            JOptionPane.showMessageDialog(null, "Não encontrado tag USER", "Erro em arquivo config.ini.", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        
+        if (stPassword.nextToken().equals("PASSWORD")) {
+            if (stPassword.hasMoreTokens()) {
+                password = stPassword.nextToken();
+            } else {
+                password = "";
+            }                 
+        } else {
+            JOptionPane.showMessageDialog(null, "Não encontrado tag PASSWORD", "Erro em arquivo config.ini.", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }   
+    }
+    public void validaConfig() {
+        
     }
 }
 
