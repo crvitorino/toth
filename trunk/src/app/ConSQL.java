@@ -7,6 +7,7 @@
 
 package app;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
@@ -93,7 +94,7 @@ public class ConSQL{
             if (strLinhas[i] != null)
                 numLinhas++;
         }
-        if (!strLinhas[0].equals("[DB Config]") || (numLinhas != 5)) {
+        if (!strLinhas[0].toUpperCase().equals("[DB CONFIG]") || (numLinhas != 5)) {
             JOptionPane.showMessageDialog(null, "O arquivo config.ini não é válido.", "Erro de Arquivo", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
@@ -106,20 +107,20 @@ public class ConSQL{
             System.exit(0);
         }
         
-        if (stOs.nextToken().equals("OS")) 
+        if (stOs.nextToken().toUpperCase().equals("OS")) 
             os = stOs.nextToken();
         else { 
             JOptionPane.showMessageDialog(null, "Não encontrado tag OS", "Erro em arquivo.", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         
-        if (stDb.nextToken().equals("DB")) {
+        if (stDb.nextToken().toUpperCase().equals("DB")) {
             if (os.equals("linux")){
                 path = stDb.nextToken();
-                url+=path;
+                url+=path+"/toth";
             } else if (os.equals("windows")) {
                 path = stDb.nextToken();
-                url+="file:"+path;                 
+                url+="file:"+path+"/toth";                 
             } else {
                 JOptionPane.showMessageDialog(null, "OS Desconhecido", "Erro em arquivo config.ini.", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
@@ -129,14 +130,14 @@ public class ConSQL{
             System.exit(0);
         }
         
-        if (stUser.nextToken().equals("USER")) {
+        if (stUser.nextToken().toUpperCase().equals("USER")) {
             user = stUser.nextToken();
         } else {
             JOptionPane.showMessageDialog(null, "Não encontrado tag USER", "Erro em arquivo config.ini.", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         
-        if (stPassword.nextToken().equals("PASSWORD")) {
+        if (stPassword.nextToken().toUpperCase().equals("PASSWORD")) {
             if (stPassword.hasMoreTokens()) {
                 password = stPassword.nextToken();
             } else {
@@ -145,11 +146,23 @@ public class ConSQL{
         } else {
             JOptionPane.showMessageDialog(null, "Não encontrado tag PASSWORD", "Erro em arquivo config.ini.", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
-        }   
+        }
+        validaConfig();
     }
     public void validaConfig() {
+        File db = new File(path+"/toth.properties");
+        if (!db.exists() || !db.isFile()) {
+            JOptionPane.showMessageDialog(null, "Não existe o banco de dados no caminho indicado.", "Erro em arquivo de db.", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        if (!db.canRead() || !db.canWrite()) {
+            JOptionPane.showMessageDialog(null, "Sem permissões suficientes para acessar o arquivo de Banco de dados.", "Erro em arquivo de db.", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        
         
     }
+    
 }
 
     

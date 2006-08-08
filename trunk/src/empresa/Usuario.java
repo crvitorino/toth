@@ -25,11 +25,18 @@ public class Usuario {
     
     /** Creates a new instance of Usuario */
     public Usuario(String data, String nome, String usuario, String cargo, String pass, ConSQL con) {
+        this.con = con;
         this.nome = nome;
         this.data = data;
         this.usuario = usuario;
         this.cargo = cargo;
         this.senha = Funcoes.criptografaSenha(pass);
+        try {
+            gravarDadosNovo();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
         
     }
     public void gravarDadosNovo() throws SQLException{
@@ -37,6 +44,7 @@ public class Usuario {
         String sql = "insert INTO usuarios VALUES (null,'"+data+"','"+nome+"','"+usuario+"','"+cargo+"','"+senha+"')";
         Statement stmt = con.getStatement();
         try {
+
             stmt.executeUpdate(sql);
             }
         catch (SQLException E) {
