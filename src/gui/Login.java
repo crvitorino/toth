@@ -140,7 +140,7 @@ public class Login extends javax.swing.JFrame {
             principal.pack();
             principal.setVisible(true);
             try {
-                this.finalize();
+                this.dispose();
             } catch (Throwable e){
             e.printStackTrace();
         }

@@ -52,6 +52,8 @@ public class CadastroUsuarios extends JPanel{
                 atual = new Usuario(atualIds.getInt(1), con);
             } else {
                 atual = new Usuario(con);
+                btSenha.setEnabled(false);
+                novo = true;
             }
                 
         } catch (SQLException e) {
@@ -278,7 +280,8 @@ public class CadastroUsuarios extends JPanel{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            btSenha.setText("Alterar Senha");
+            btSenha.setEnabled(true);
+            pergSenha();
             novo = false;
         } else {
             atual.setNome(txtNome.getText());
@@ -300,7 +303,7 @@ public class CadastroUsuarios extends JPanel{
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {                                       
         atual = new Usuario(con);
         setAtual();
-        btSenha.setText("Criar Senha");
+        btSenha.setEnabled(false);
         novo = true;
         
     }                                      

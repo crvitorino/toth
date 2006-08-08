@@ -9,6 +9,7 @@ package utils;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -29,6 +30,13 @@ public class Funcoes {
             if (s.length() %2 != 0)
                 s = "0" + s;
             return s;
+    }
+    public static String trataData(String dt) {
+        StringTokenizer st = new StringTokenizer(dt, "-");
+        String ano = st.nextToken();
+        String mes = st.nextToken();
+        String dia = st.nextToken();
+        return dia+"/"+mes+"/"+ano;
     }
    
     
