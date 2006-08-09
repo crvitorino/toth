@@ -50,14 +50,12 @@ public class CadastroUsuarios extends JPanel{
         this.con = con;
         try {
             atuaIds();
-            if (atualIds.first()){
+            if (atualIds.first())
                 atual = new Usuario(atualIds.getInt(1), con);
-            } else {
+            else {
                 atual = new Usuario(con);
-                btSenha.setEnabled(false);
-                novo = true;
+                novo = true; 
             }
-                
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -95,6 +93,8 @@ public class CadastroUsuarios extends JPanel{
             this.btAnt.setText("<"); 
         }
         setAtual();
+        if (novo)
+            btSenha.setEnabled(false);
  
 
         
@@ -102,7 +102,7 @@ public class CadastroUsuarios extends JPanel{
     protected void atuaIds() throws SQLException {
         try {
             Statement stmt = con.getStatement();
-            atualIds = stmt.executeQuery("select id from Usuarios");
+            atualIds = stmt.executeQuery("select id from usuarios");
             
         } catch (SQLException e){
             e.printStackTrace();
@@ -314,6 +314,7 @@ public class CadastroUsuarios extends JPanel{
             try{
                 atuaIds();
                 atualIds.last();
+                atual = new Usuario(atualIds.getInt(1), con);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
