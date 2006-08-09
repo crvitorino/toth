@@ -488,7 +488,9 @@ public class CadastroClientes extends javax.swing.JPanel {
             try{
                 atuaIds();
                 atualIds.last();
-                txtCode.setText(atualIds.getString(1));
+                atual = new Cliente(atualIds.getInt(1), con);
+                //txtCode.setText(atualIds.getString(1));
+                setAtual();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
