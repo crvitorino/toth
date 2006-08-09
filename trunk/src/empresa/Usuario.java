@@ -105,7 +105,7 @@ public class Usuario {
          this.senha = Funcoes.criptografaSenha(pass);
 
     }
-    public void update() throws SQLException{
+    public boolean update() throws SQLException{
         String sql = "update usuarios set nome='"+nome+"',usuario ='"+usuario+"',cargo='"+cargo+"',senha='"+senha+"' where id ="+id;
         Statement stmt = con.getStatement();
         try {
@@ -113,7 +113,22 @@ public class Usuario {
             }
         catch (SQLException e) {
 	    e.printStackTrace();
+            return false;
 	}
+        return true;
+        
+    }
+    public boolean apagaUsuario() {
+        String sql = "delete from usuarios where id = "+id;
+        Statement stmt = con.getStatement();
+        try {
+            stmt.executeUpdate(sql);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
         
     }
 

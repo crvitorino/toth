@@ -44,15 +44,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="txtCode" min="-2" pref="56" max="-2" attributes="0"/>
-                                  <EmptySpace pref="64" max="32767" attributes="0"/>
-                                  <Component id="chkAtivo" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                                  <Component id="lblDesde" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblData" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
                               <Component id="txtNome" alignment="0" min="-2" pref="397" max="-2" attributes="0"/>
                               <Component id="txtFantasia" alignment="1" min="-2" pref="397" max="-2" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -96,6 +87,20 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btCancelar" min="-2" pref="55" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="txtCode" min="-2" pref="56" max="-2" attributes="0"/>
+                                  <EmptySpace pref="64" max="32767" attributes="0"/>
+                                  <Component id="chkAtivo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btDeletar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lblDesde" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="lblData" min="-2" pref="100" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtCep" min="-2" pref="100" max="-2" attributes="0"/>
@@ -131,6 +136,7 @@
                   <Component id="btProx" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btUlt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btNovo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btDeletar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -395,6 +401,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btDeletar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Deletar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDeletarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
