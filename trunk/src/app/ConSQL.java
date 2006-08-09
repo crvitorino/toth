@@ -43,11 +43,12 @@ public class ConSQL{
           JOptionPane.showMessageDialog(null, "ClassNotFound", "ClassNotFound", JOptionPane.ERROR_MESSAGE);
       }
       try {
-      con = DriverManager.getConnection(url,user,password);
-      stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+        con = DriverManager.getConnection(url,user,password);
+        stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                                       ResultSet.CONCUR_UPDATABLE);
       } catch (Exception e) {
           e.printStackTrace();
+          System.exit(0);
       }
       
         
