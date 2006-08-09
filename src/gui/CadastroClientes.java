@@ -140,6 +140,7 @@ public class CadastroClientes extends javax.swing.JPanel {
         btProx = new javax.swing.JButton();
         btUlt = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
+        btDeletar = new javax.swing.JButton();
 
         setToolTipText("Cadastro de Clientes");
         setFocusable(false);
@@ -242,6 +243,13 @@ public class CadastroClientes extends javax.swing.JPanel {
             }
         });
 
+        btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeletarActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -268,14 +276,6 @@ public class CadastroClientes extends javax.swing.JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(layout.createSequentialGroup()
-                                    .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 64, Short.MAX_VALUE)
-                                    .add(chkAtivo)
-                                    .add(75, 75, 75)
-                                    .add(lblDesde)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(lblData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, txtNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(txtFantasia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 397, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
@@ -310,7 +310,18 @@ public class CadastroClientes extends javax.swing.JPanel {
                                 .add(layout.createSequentialGroup()
                                     .add(btGravar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(btCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                    .add(btCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(layout.createSequentialGroup()
+                                    .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 64, Short.MAX_VALUE)
+                                    .add(chkAtivo)
+                                    .add(75, 75, 75)
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(btDeletar)
+                                        .add(layout.createSequentialGroup()
+                                            .add(lblDesde)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(lblData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                             .add(layout.createSequentialGroup()
                                 .add(txtCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 297, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
@@ -337,7 +348,8 @@ public class CadastroClientes extends javax.swing.JPanel {
                     .add(btAnt)
                     .add(btProx)
                     .add(btUlt)
-                    .add(btNovo))
+                    .add(btNovo)
+                    .add(btDeletar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblCode)
@@ -399,6 +411,10 @@ public class CadastroClientes extends javax.swing.JPanel {
                 .addContainerGap(99, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
+        
+    }//GEN-LAST:event_btDeletarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         if (novo) {
@@ -499,6 +515,7 @@ public class CadastroClientes extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAnt;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btDeletar;
     private javax.swing.JButton btGravar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPrim;

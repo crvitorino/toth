@@ -7,6 +7,7 @@
 package gui;
 
 import app.ConSQL;
+import java.awt.Dimension;
 import javax.swing.*;
 
 
@@ -117,8 +118,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void iUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iUsuariosActionPerformed
         CadastroUsuarios cad = new CadastroUsuarios(con);
-        intUsuarios = new JInternalFrame("Cadastro de usuários", true, true, true, true);
+        intUsuarios = new JInternalFrame("Cadastro de usuários", false, true, false, true);
         intUsuarios.setContentPane(cad);
+        intUsuarios.setMaximizable(false);
+        intUsuarios.setMinimumSize(new Dimension(300, 100));
         intDesk.add(intUsuarios);
         intUsuarios.pack();
         intUsuarios.setVisible(true);
@@ -137,7 +140,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void iClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iClientesActionPerformed
         CadastroClientes cad = new CadastroClientes(con);
-        intClientes = new JInternalFrame("Cadastro de Clientes", true, true, true, true);
+        intClientes = new JInternalFrame("Cadastro de Clientes", false, true, false, true);
         intClientes.setContentPane(cad);
         intDesk.add(intClientes);
         intClientes.pack();

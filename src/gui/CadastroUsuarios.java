@@ -37,6 +37,7 @@ public class CadastroUsuarios extends JPanel{
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JButton btDeletar;
     
     private ResultSet atualIds;
     private ConSQL con;
@@ -123,6 +124,7 @@ public class CadastroUsuarios extends JPanel{
         btSenha = new javax.swing.JButton();
         btGravar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        btDeletar = new javax.swing.JButton();
         
         btGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +174,13 @@ public class CadastroUsuarios extends JPanel{
                 btNovoActionPerformed(evt);
             }
         });
+        
+        btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeletarActionPerformed(evt);
+            }
+        });
 
         btNovo.setText("Novo");
 
@@ -202,6 +211,8 @@ public class CadastroUsuarios extends JPanel{
                                 .add(btProx)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(btUlt)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(btDeletar)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 114, Short.MAX_VALUE)
                                 .add(btNovo))
                             .add(txtNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)))
@@ -234,6 +245,7 @@ public class CadastroUsuarios extends JPanel{
                         .add(btAnt)
                         .add(btProx)
                         .add(btUlt))
+                    .add(btDeletar)
                     .add(btNovo))
                 .add(12, 12, 12)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -252,6 +264,9 @@ public class CadastroUsuarios extends JPanel{
                     .add(btCancelar))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+    }
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {
+        
     }
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {
         if (novo) {
