@@ -5,7 +5,6 @@
  */
 
 package gui;
-
 import app.ConSQL;
 import java.awt.Dimension;
 import javax.swing.*;
@@ -61,7 +60,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().add(intDesk, java.awt.BorderLayout.CENTER);
 
         mCadastro.setText("Cadastro");
-        iClientes.setText("Clientes/Fornecedores");
+        iClientes.setText("Clientes");
         iClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 iClientesActionPerformed(evt);
@@ -71,9 +70,21 @@ public class Principal extends javax.swing.JFrame {
         mCadastro.add(iClientes);
 
         iprodutos.setText("Produtos");
+        iprodutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iprodutosActionPerformed(evt);
+            }
+        });
+
         mCadastro.add(iprodutos);
 
         ifornecedor.setText("Fornecedor");
+        ifornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ifornecedorActionPerformed(evt);
+            }
+        });
+
         mCadastro.add(ifornecedor);
 
         iUsuarios.setText("Usu\u00e1rios");
@@ -115,6 +126,26 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void iprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iprodutosActionPerformed
+        CadastroProdutos cad = new CadastroProdutos(con);
+        intProdutos = new JInternalFrame("Cadastro de Produtos", false, true, false, true);
+        intProdutos.setContentPane(cad);
+        intDesk.add(intProdutos);
+        intProdutos.pack();
+        intProdutos.setVisible(true);
+    }//GEN-LAST:event_iprodutosActionPerformed
+
+    private void ifornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ifornecedorActionPerformed
+        CadastroFornecedor fornecedor = new CadastroFornecedor(con);
+        intFornecedor = new JInternalFrame("Cadastro de Fornecedores", true, true, true, true);
+        intFornecedor.setContentPane(fornecedor);
+        intDesk.add(intFornecedor);
+        intFornecedor.pack();
+        intFornecedor.setVisible(true);
+                                             
+
+    }//GEN-LAST:event_ifornecedorActionPerformed
 
     private void iUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iUsuariosActionPerformed
         CadastroUsuarios cad = new CadastroUsuarios(con);
@@ -163,5 +194,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel status1;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JInternalFrame intClientes;
+    private javax.swing.JInternalFrame intFornecedor;
     private javax.swing.JInternalFrame intUsuarios;
+    private javax.swing.JInternalFrame intProdutos;
 }
