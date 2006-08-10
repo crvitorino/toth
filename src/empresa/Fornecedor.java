@@ -11,31 +11,28 @@ import app.ConSQL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
-import org.brazilutils.br.cpfcnpj.CpfCnpj;
 
 /**
  *
  * @author Fernando Dettoni
  */
-public class Cliente {
+public class Fornecedor {
     public int codigo;
     public boolean ativo;
-    public String nome, data, fantasia, cpf, rg, endereco, bairro, numero, municipio, estado, cep, fone1, fone2, email; 
-    
+    public String nome, data, fantasia, cnpj, inscest, endereco, bairro, numero, municipio, estado, cep, fone1, fone2, email; 
     private ConSQL con;
 
     /**
      * Creates a new instance of Cliente
      */
     
-    public Cliente(String nome, boolean ativo, String data, String fantasia, String cpf, String rg, String endereco, String bairro, String numero, String municipio, String estado, String cep, String fone1, String fone2, String email, ConSQL con) {
+    public Fornecedor(String nome, boolean ativo, String data, String fantasia, String cnpj, String inscest, String endereco, String bairro, String numero, String municipio, String estado, String cep, String fone1, String fone2, String email, ConSQL con) {
         this.nome = nome;
         this.ativo = ativo;
         this.data = data;
         this.fantasia = fantasia;
-        this.cpf = cpf;
-        this.rg = rg;
+        this.cnpj = cnpj;
+        this.inscest = inscest;
         this.endereco = endereco;
         this.bairro = bairro;
         this.numero = numero;
@@ -55,12 +52,12 @@ public class Cliente {
     
     public void gravarDadosNovo() throws SQLException{
         
-        String sql = "insert INTO clientes VALUES (null,'"+nome+"',"+ativo+",'"+data+"','"+fantasia+"','"+cpf+"','"+rg+"','"+
+        String sql = "insert INTO fornecedores VALUES (null,'"+nome+"',"+ativo+",'"+data+"','"+fantasia+"','"+cnpj+"','"+inscest+"','"+
         endereco+"','"+bairro+"','"+numero+"','"+municipio+"','"+estado+"','"+cep+"','"+fone1+"','"+fone2+"','"+email+"')";
         Statement stmt = con.getStatement();
         try {
             stmt.executeUpdate(sql);
-            ResultSet rs = stmt.executeQuery("select id from clientes where nome='"+nome+"'");
+            ResultSet rs = stmt.executeQuery("select id from fornecedores where nome='"+nome+"'");
             rs.next();
             this.codigo = rs.getInt(1);
             }
@@ -73,8 +70,8 @@ public class Cliente {
         
         
       }
-    public Cliente(int id, ConSQL con) throws SQLException{
-        String sql = "select * from clientes where id="+id;
+    public Fornecedor(int id, ConSQL con) throws SQLException{
+        String sql = "select * from fornecedores where id="+id;
         this.con = con;
         
         try {
@@ -86,8 +83,8 @@ public class Cliente {
             this.ativo = rs.getBoolean(3);
             this.data = rs.getString(4);
             this.fantasia = rs.getString(5);
-            this.cpf = rs.getString(6);
-            this.rg = rs.getString(7);
+            this.cnpj = rs.getString(6);
+            this.inscest = rs.getString(7);
             this.endereco = rs.getString(8);
             this.bairro = rs.getString(9);
             this.numero = rs.getString(10);
@@ -103,39 +100,9 @@ public class Cliente {
         }
       
     }
-    public Cliente(ConSQL con) {
+    public Fornecedor(ConSQL con) {
         this.con = con;
     }    
-    public String getCpf() {
-            return cpf;
-    }
-    public boolean apagaCliente() {
-        String sql = "delete from clientes where id = "+codigo;
-        Statement stmt = con.getStatement();
-        try {
-            stmt.executeUpdate(sql);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-        
-    }
-    public void update() throws SQLException{
-        String sql = "update clientes set nome='"+nome+"',ativo ="+ativo+",fantasia='"+fantasia+"',cpf='"+cpf+"',rg='"+rg+"',endereco='"+
-                        endereco+"',bairro='"+bairro+"',numero='"+numero+"',cidade='"+municipio+"',estado='"+estado+"',cep='"+cep+
-                        "',telefone='"+fone1+"',telefone2='"+fone2+"',email='"+email+"' where id ="+codigo;
-        Statement stmt = con.getStatement();
-        try {
-            stmt.executeUpdate(sql);
-            }
-        catch (SQLException e) {
-	    e.printStackTrace();
-	}
-
-        
-    }
     
     
 }
