@@ -304,7 +304,6 @@ public class CadastroUsuarios extends JPanel{
         }
             
     }
-
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {
         if (novo) {
             GregorianCalendar gc = new GregorianCalendar();
@@ -333,11 +332,9 @@ public class CadastroUsuarios extends JPanel{
         }
         
     }
-
     private void btSenhaActionPerformed(java.awt.event.ActionEvent evt) {
         pergSenha();
     }
-    
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {                                       
         atual = new Usuario(con);
         setAtual();
@@ -345,7 +342,6 @@ public class CadastroUsuarios extends JPanel{
         novo = true;
         
     }                                      
-
     private void btUltActionPerformed(java.awt.event.ActionEvent evt) {                                      
         try {
             if (atualIds.last())
@@ -357,7 +353,6 @@ public class CadastroUsuarios extends JPanel{
         setAtual();
         
     }                                     
-
     private void btProxActionPerformed(java.awt.event.ActionEvent evt) {                                       
         try {
             if (atualIds.next())
@@ -369,7 +364,6 @@ public class CadastroUsuarios extends JPanel{
         }
         setAtual();
     }                                      
-
     private void btAntActionPerformed(java.awt.event.ActionEvent evt) {                                      
         try {
             if (atualIds.previous())
@@ -381,7 +375,6 @@ public class CadastroUsuarios extends JPanel{
         }
         setAtual();
     }                                     
-
     private void btPrimActionPerformed(java.awt.event.ActionEvent evt) {                                       
         try {
             if (atualIds.first())
