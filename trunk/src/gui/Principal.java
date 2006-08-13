@@ -42,6 +42,7 @@ public class Principal extends javax.swing.JFrame {
         ifornecedor = new javax.swing.JMenuItem();
         iUsuarios = new javax.swing.JMenuItem();
         mMovimento = new javax.swing.JMenu();
+        mPedidoVenda = new javax.swing.JMenuItem();
         mUtilitarios = new javax.swing.JMenu();
         iCalc = new javax.swing.JMenuItem();
         mAjuda = new javax.swing.JMenu();
@@ -99,6 +100,15 @@ public class Principal extends javax.swing.JFrame {
         menu.add(mCadastro);
 
         mMovimento.setText("Movimenta\u00e7\u00e3o");
+        mPedidoVenda.setText("Pedido de Venda");
+        mPedidoVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mPedidoVendaActionPerformed(evt);
+            }
+        });
+
+        mMovimento.add(mPedidoVenda);
+
         menu.add(mMovimento);
 
         mUtilitarios.setText("Utilit\u00e1rios");
@@ -126,6 +136,14 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mPedidoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPedidoVendaActionPerformed
+        PedidoVenda intPed = new PedidoVenda(con); 
+        intDesk.add(intPed);
+        intPed.pack();
+        intPed.setVisible(true);
+        
+    }//GEN-LAST:event_mPedidoVendaActionPerformed
 
     private void iprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iprodutosActionPerformed
       /*  CadastroProdutos cad = new CadastroProdutos(con);
@@ -189,6 +207,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mAjuda;
     private javax.swing.JMenu mCadastro;
     private javax.swing.JMenu mMovimento;
+    private javax.swing.JMenuItem mPedidoVenda;
     private javax.swing.JMenu mUtilitarios;
     private javax.swing.JMenuBar menu;
     private javax.swing.JLabel status1;
