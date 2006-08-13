@@ -44,7 +44,6 @@ public class Usuario {
         String sql = "insert INTO usuarios VALUES (null,'"+data+"','"+nome+"','"+usuario+"','"+cargo+"','"+senha+"')";
         Statement stmt = con.getStatement();
         try {
-
             stmt.executeUpdate(sql);
             }
         catch (SQLException E) {
