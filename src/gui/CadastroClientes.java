@@ -76,6 +76,7 @@ public class CadastroClientes extends javax.swing.JPanel {
         } else {
             this.btAnt.setText("<"); 
         }
+        txtCode.setEditable(false);
         setAtual();
         this.setPreferredSize(new Dimension(500,350));
     }
@@ -163,7 +164,7 @@ public class CadastroClientes extends javax.swing.JPanel {
         lblCode.setText("C\u00f3digo: ");
         lblCode.setFocusable(false);
 
-        txtCode.setEnabled(false);
+        txtCode.setOpaque(false);
 
         chkAtivo.setText("Ativo");
         chkAtivo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));

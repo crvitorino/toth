@@ -151,7 +151,7 @@ public class ConSQL{
         validaConfig();
     }
     public void validaConfig() {
-        File db = new File(path+"/toth.properties");
+        File db = new File(path+"/toth.data");
         if (!db.exists() || !db.isFile()) {
             JOptionPane.showMessageDialog(null, "Não existe o banco de dados no caminho indicado.", "Erro em arquivo de db.", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
