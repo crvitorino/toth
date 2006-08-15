@@ -11,6 +11,7 @@ import empresa.Pedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,9 +27,11 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     private ConSQL con;
     private Pedido atual;
     private boolean novo = false;
+    private Principal principal;
     
-    public PedidoVenda(ConSQL con) {
+    public PedidoVenda(ConSQL con, Principal frame) {
         super("Pedido de Venda", false, true, false, true);
+        principal = frame;
         this.con = con;
         tbModel =  new DefaultTableModel(new Object [][] { },
             new String [] {
@@ -466,7 +469,10 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscaActionPerformed
-// TODO add your handling code here:
+        BuscaCliente busca = new BuscaCliente(this);
+        principal.addFrame(busca);
+        busca.pack();
+        busca.setVisible(true);
     }//GEN-LAST:event_btBuscaActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed

@@ -138,7 +138,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mPedidoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPedidoVendaActionPerformed
-        PedidoVenda intPed = new PedidoVenda(con); 
+        PedidoVenda intPed = new PedidoVenda(con, this); 
         intDesk.add(intPed);
         intPed.pack();
         intPed.setVisible(true);
@@ -146,21 +146,21 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mPedidoVendaActionPerformed
 
     private void iprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iprodutosActionPerformed
-      /*  CadastroProdutos cad = new CadastroProdutos(con);
+        CadastroProdutos cad = new CadastroProdutos(con);
         intProdutos = new JInternalFrame("Cadastro de Produtos", false, true, false, true);
         intProdutos.setContentPane(cad);
         intDesk.add(intProdutos);
         intProdutos.pack();
-        intProdutos.setVisible(true);*/
+        intProdutos.setVisible(true);
     }//GEN-LAST:event_iprodutosActionPerformed
 
     private void ifornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ifornecedorActionPerformed
-        /*CadastroFornecedor fornecedor = new CadastroFornecedor(con);
+        CadastroFornecedor fornecedor = new CadastroFornecedor(con);
         intFornecedor = new JInternalFrame("Cadastro de Fornecedores", true, true, true, true);
         intFornecedor.setContentPane(fornecedor);
         intDesk.add(intFornecedor);
         intFornecedor.pack();
-        intFornecedor.setVisible(true);*/
+        intFornecedor.setVisible(true);
                                              
 
     }//GEN-LAST:event_ifornecedorActionPerformed
@@ -195,6 +195,9 @@ public class Principal extends javax.swing.JFrame {
         intClientes.pack();
         intClientes.setVisible(true);
     }//GEN-LAST:event_iClientesActionPerformed
+    public void addFrame(JInternalFrame frame) {
+        intDesk.add(frame);
+    }
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
