@@ -52,7 +52,7 @@ public class Produto {
         Statement stmt = con.getStatement();
         try {
             stmt.executeUpdate(sql);
-            ResultSet rs = stmt.executeQuery("select id from produtos where nome='"+descricao+"'");
+            ResultSet rs = stmt.executeQuery("select id from produtos where descricao='"+descricao+"'");
             rs.next();
             this.codigo = rs.getInt(1);
             }
