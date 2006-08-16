@@ -102,7 +102,7 @@ public class BuscaProduto extends Busca{
             pedido.recebeIdProduto(id);
             this.dispose();
         } else 
-            JOptionPane.showMessageDialog(this, "Nenhum cliente foi selecionado!","Cliente não selecionado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi selecionado!","Produto não selecionado", JOptionPane.ERROR_MESSAGE);
         
     }
     private void getTable() {
