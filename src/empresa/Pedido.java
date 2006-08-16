@@ -34,21 +34,26 @@ public class Pedido {
         itens = new Vector();
         try {
             this.cliente = new Cliente(idCliente, con);
-            gravarDadosNovo();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     public void gravarDadosNovo() throws SQLException{
-        
-        String sql = "insert INTO pedido VALUES (null,'"+idCliente+"','"+data+"','"+qtdade+"','"+formaPag+"','"+vlTotal+"','"+desc+"')";
+        String[] sql = new String[itens.size()]; 
+        sql[0] = "insert INTO pedido VALUES (null,'"+idCliente+"','"+data+"','"+qtdade+"','"+formaPag+"','"+vlTotal+"','"+desc+"')";
+        for (int i = 1; i<itens.size(); i++) {
+            Vector vi = (Vector)itens.get(i-1);
+            sql[i] = "INSERT INTO itempedido VALUES("+id+", "+vi.get(0)+", "+vi.get(2)+", "+vi.get(5)+", "+vi.get(4)+")";
+        }
         Statement stmt = con.getStatement();
         try {
-            stmt.executeUpdate(sql);
+            for (int i=0; i<itens.size(); i++)
+                stmt.executeUpdate(sql[i]);
             }
         catch (SQLException E) {
 	    E.printStackTrace();
 	}
+        
 	 
         
     }
@@ -78,7 +83,10 @@ public class Pedido {
         itens = new Vector();
     }
     public void addItem(Produto itm) {
-        itens.addElement(itm.getVector());
+        Vector vec = itm.getVector();
+        itens.addElement(vec);
+        
+        
     }
     public boolean apagaUsuario() {
         String sql = "delete from pedido where id = "+id;
