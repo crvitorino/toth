@@ -1,9 +1,3 @@
-/*
- * CadastroClientes.java
- *
- * Created on 1 de Agosto de 2006, 19:48
- */
-
 package gui;
 
 import app.ConSQL;
@@ -83,20 +77,20 @@ public class CadastroClientes extends javax.swing.JPanel {
     public void setAtual() {
         txtCode.setText(String.valueOf(atual.codigo));
         chkAtivo.setSelected(atual.ativo);
-        txtNome.setText(atual.nome);
-        lblData.setText(Funcoes.trataData(atual.data));
-        txtFantasia.setText(atual.fantasia);
+        txtNome.setText(atual.getNome());
+        lblData.setText(Funcoes.trataData(atual.getData()));
+        txtFantasia.setText(atual.getFantasia());
         txtCPF.setText(atual.getCpf());
-        txtRg.setText(atual.rg);
-        txtEndereco.setText(atual.endereco);
-        txtBairro.setText(atual.bairro);
-        txtNum.setText(atual.numero);
-        txtCidade.setText(atual.municipio);
-        txtEstado.setText(atual.estado);
-        txtCep.setText(atual.cep);
-        txtFone.setText(atual.fone1);
-        txtFone1.setText(atual.fone2);
-        txtEmail.setText(atual.email);       
+        txtRg.setText(atual.getRg());
+        txtEndereco.setText(atual.getEndereco());
+        txtBairro.setText(atual.getBairro());
+        txtNum.setText(atual.getNumero());
+        txtCidade.setText(atual.getMunicipio());
+        txtEstado.setText(atual.getEstado());
+        txtCep.setText(atual.getCep());
+        txtFone.setText(atual.getFone1());
+        txtFone1.setText(atual.getFone2());
+        txtEmail.setText(atual.getEmail());       
     }
     
     /** This method is called from within the constructor to
@@ -521,25 +515,24 @@ public class CadastroClientes extends javax.swing.JPanel {
             }
             novo = false;
          } else {
-/* PPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR            
- *AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKKKKKKKKKKKKKKKKKKKKKKKKKKKKKIIIIIIIIIIIIIIIIIIIIIIIIIII */
+
         if (validaDados()){
              atual.codigo = Integer.parseInt(txtCode.getText());
             atual.ativo = chkAtivo.isSelected();
-            atual.nome = txtNome.getText();
-            atual.data = lblData.getText();
-            atual.fantasia = txtFantasia.getText();
-            atual.cpf = txtCPF.getText();
-            atual.rg = txtRg.getText();
-            atual.endereco = txtEndereco.getText();
-            atual.bairro = txtBairro.getText();
-            atual.numero = txtNum.getText();
-            atual.municipio = txtCidade.getText();
-            atual.estado = txtEstado.getText();
-            atual.cep = txtCep.getText();
-            atual.fone1 = txtFone.getText();
-            atual.fone2 = txtFone1.getText();
-            atual.email = txtEmail.getText();
+            atual.setNome(txtNome.getText());
+            atual.setData(lblData.getText());
+            atual.setFantasia(txtFantasia.getText());
+            atual.setCpf(txtCPF.getText());
+            atual.setRg(txtRg.getText());
+            atual.setEndereco(txtEndereco.getText());
+            atual.setBairro(txtBairro.getText());
+            atual.setNumero(txtNum.getText());
+            atual.setMunicipio(txtCidade.getText());
+            atual.setEstado(txtEstado.getText());
+            atual.setCep(txtCep.getText());
+            atual.setFone1(txtFone.getText());
+            atual.setFone2(txtFone1.getText());
+            atual.setEmail(txtEmail.getText());
             try {
                 atual.update();
             } catch (SQLException e){
