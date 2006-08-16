@@ -1,9 +1,3 @@
-/*
- * Cliente.java
- *
- * Criado em 3 de Agosto de 2006, 22:46
- *
- */
 
 package empresa;
 
@@ -21,13 +15,9 @@ import org.brazilutils.br.cpfcnpj.CpfCnpj;
 public class Cliente {
     public int codigo;
     public boolean ativo;
-    public String nome, data, fantasia, cpf, rg, endereco, bairro, numero, municipio, estado, cep, fone1, fone2, email; 
+    private String nome, data, fantasia, cpf, rg, endereco, bairro, numero, municipio, estado, cep, fone1, fone2, email; 
     
     private ConSQL con;
-
-    /**
-     * Creates a new instance of Cliente
-     */
     
     public Cliente(String nome, boolean ativo, String data, String fantasia, String cpf, String rg, String endereco, String bairro, String numero, String municipio, String estado, String cep, String fone1, String fone2, String email, ConSQL con) {
         this.nome = nome;
@@ -106,9 +96,7 @@ public class Cliente {
     public Cliente(ConSQL con) {
         this.con = con;
     }    
-    public String getCpf() {
-            return cpf;
-    }
+   
     public boolean apagaCliente() {
         String sql = "delete from clientes where id = "+codigo;
         Statement stmt = con.getStatement();
@@ -135,6 +123,90 @@ public class Cliente {
 	}
 
         
+    }
+    public void setNome(String Nome){
+        this.nome = Nome;
+    }
+    public void setData(String Data){
+        this.data = Data;
+    }
+    public void setFantasia(String Fantasia){
+        this.fantasia = Fantasia;
+    }
+    public void setCpf(String Cpf){
+        this.cpf = Cpf;
+    }
+    public void setRg(String Rg){
+        this.rg = Rg;
+    }
+    public void setEndereco(String Endereco){
+        this.endereco = Endereco;
+    }
+    public void setBairro(String Bairro){
+        this.bairro = Bairro;
+    }
+    public void setNumero(String Numero){
+        this.numero = Numero;
+    }
+    public void setMunicipio(String Municipio){
+        this.municipio = Municipio;
+    }
+    public void setEstado(String Estado){
+        this.estado = Estado;
+    }
+    public void setCep(String Cep){
+        this.cep = Cep;
+    }
+    public void setFone1(String Fone1){
+        this.fone1 = Fone1;
+    }
+    public void setFone2(String Fone2){
+        this.fone2 = Fone2;
+    }
+    public void setEmail(String Email){
+        this.email = Email;
+    }
+    public String getNome(){
+        return nome;
+    }
+    public String getData(){
+        return data;
+    }
+    public String getFantasia(){
+        return fantasia;
+    }
+    public String getCpf(){
+        return cpf;
+    }
+    public String getRg(){
+        return rg;
+    }
+    public String getEndereco(){
+        return endereco;
+    }
+    public String getBairro(){
+        return bairro;
+    }
+    public String getNumero(){
+        return numero;
+    }
+    public String getMunicipio(){
+        return municipio;
+    }
+    public String getEstado(){
+        return estado;
+    }
+    public String getCep(){
+        return cep;
+    }
+    public String getFone1(){
+        return fone1;
+    }
+    public String getFone2(){
+        return fone2;
+    }
+    public String getEmail(){
+        return email;
     }
     
     
