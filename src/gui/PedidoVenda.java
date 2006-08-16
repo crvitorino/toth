@@ -87,14 +87,14 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         txtPedido.setText(String.valueOf(atual.getId()));
         txtData.setText(Funcoes.trataData(atual.getData()));
         txtCodCliente.setText(String.valueOf(atual.getIdCliente()));
-        txtNome.setText(atual.getCliente().nome);
-        txtCpf.setText(atual.getCliente().cpf);
-        txtEndereco.setText(atual.getCliente().endereco);
-        txtNumero.setText(atual.getCliente().numero);
-        txtMunicipio.setText(atual.getCliente().municipio);
-        txtEstado.setText(atual.getCliente().estado);
-        txtFone.setText(atual.getCliente().fone1);
-        txtFone2.setText(atual.getCliente().fone2);
+        txtNome.setText(atual.getCliente().getNome());
+        txtCpf.setText(atual.getCliente().getCpf());  
+        txtEndereco.setText(atual.getCliente().getEndereco());
+        txtNumero.setText(atual.getCliente().getNumero());
+        txtMunicipio.setText(atual.getCliente().getMunicipio());
+        txtEstado.setText(atual.getCliente().getEstado());
+        txtFone.setText(atual.getCliente().getFone1());
+        txtFone2.setText(atual.getCliente().getFone2());
         
         
     }
