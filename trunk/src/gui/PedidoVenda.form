@@ -35,7 +35,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbForma" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtForma" alignment="0" pref="193" max="32767" attributes="1"/>
+                                  <Component id="txtForma" alignment="0" pref="207" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -72,7 +72,7 @@
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtPedido" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="66" max="32767" attributes="0"/>
+                              <EmptySpace pref="114" max="32767" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           </Group>
@@ -103,7 +103,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCpf" alignment="0" pref="155" max="32767" attributes="1"/>
+                          <Component id="txtCpf" alignment="0" pref="167" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -134,8 +134,8 @@
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtNumero" alignment="0" pref="155" max="32767" attributes="1"/>
-                          <Component id="txtFone2" alignment="0" pref="155" max="32767" attributes="1"/>
+                          <Component id="txtNumero" alignment="0" pref="161" max="32767" attributes="1"/>
+                          <Component id="txtFone2" alignment="0" pref="161" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
