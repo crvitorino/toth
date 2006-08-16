@@ -62,4 +62,10 @@ CREATE table pedido(
 	formapag VARCHAR(60),
 	vlTotal DOUBLE,
 	desc DOUBLE);
+CREATE TABLE itempedido (
+	idpedido INTEGER,
+	idproduto INTEGER,
+	qtdade DOUBLE,
+	vlUnit DOUBLE,
+	desc DOUBLE);
 	
