@@ -19,7 +19,7 @@ import java.util.Vector;
  */
 public class Pedido {
     
-    private int id, idCliente, qtdade;
+    private int id, idCliente, qtdade; 
     private Vector itens;
     private double vlTotal, desc;
     private String data, formaPag;

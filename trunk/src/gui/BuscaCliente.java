@@ -58,19 +58,18 @@ public class BuscaCliente extends Busca{
         txtCPF = new JTextField(10);
         btPesquisar = new JButton("Pesquisar");
         btSelecionar =  new JButton("Selecionar");
-        JScrollPane scroll = new JScrollPane();  
         tabela = new JTable();
         
+        JScrollPane scroll = new JScrollPane(tabela);
         
         tabela.setModel(tbModel);
-        tabela.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tabela.setMaximumSize(new java.awt.Dimension(650, 112));
-        tabela.setMinimumSize(new java.awt.Dimension(650, 112));
-        tabela.setOpaque(false);
-        tabela.setPreferredSize(new java.awt.Dimension(650, 112));
         tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        scroll.setViewportView(tabela);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(70);
+        tabela.getColumnModel().getColumn(4).setPreferredWidth(70);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(10);
         scroll.setPreferredSize(new Dimension(650, 115));
         
         this.add(lbNome);
@@ -130,5 +129,6 @@ public class BuscaCliente extends Busca{
             sqlex.printStackTrace(); 
         } 
     } 
- } 
+}
+
    

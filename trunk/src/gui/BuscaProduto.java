@@ -59,19 +59,14 @@ public class BuscaProduto extends Busca{
         txtFab = new JTextField(10);
         btPesquisar = new JButton("Pesquisar");
         btSelecionar =  new JButton("Selecionar");
-        JScrollPane scroll = new JScrollPane();  
+          
         tabela = new JTable();
-        
+        JScrollPane scroll = new JScrollPane(tabela);
         
         tabela.setModel(tbModel);
         tabela.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tabela.setMaximumSize(new java.awt.Dimension(650, 112));
-        tabela.setMinimumSize(new java.awt.Dimension(650, 112));
         tabela.setOpaque(false);
-        tabela.setPreferredSize(new java.awt.Dimension(650, 112));
         tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        scroll.setViewportView(tabela);
         scroll.setPreferredSize(new Dimension(650, 115));
         
         this.add(lbNome);
