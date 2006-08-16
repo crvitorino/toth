@@ -1,9 +1,3 @@
-/*
- * CadastroClientes.java
- *
- * Created on 1 de Agosto de 2006, 19:48
- */
-
 package gui;
 
 import app.ConSQL;
@@ -14,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
+import org.brazilutils.br.cpfcnpj.CpfCnpj;
+import javax.swing.JOptionPane;
 import utils.Funcoes;
 
 /**
@@ -44,56 +40,58 @@ public class CadastroFornecedor extends javax.swing.JPanel {
             e.printStackTrace();
         }
         initComponents();
-        if (CadastroClientes.class.getResource("/images/btOk.gif") != null) {
-            this.btGravar.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btOk.gif")));
+        if (CadastroFornecedor.class.getResource("/images/btOk.gif") != null) {
+            this.btGravar.setIcon(new ImageIcon(CadastroFornecedor.class.getResource("/images/btOk.gif")));
         } else {
             this.btGravar.setText("Gravar"); 
         }
-        if (CadastroClientes.class.getResource("/images/btCancelar.gif") != null) {
-            this.btCancelar.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btCancelar.gif")));
+        if (CadastroFornecedor.class.getResource("/images/btCancelar.gif") != null) {
+            this.btCancelar.setIcon(new ImageIcon(CadastroFornecedor.class.getResource("/images/btCancelar.gif")));
         } else {
             this.btCancelar.setText("Cancelar");
         }
-        if (CadastroClientes.class.getResource("/images/btPrim.gif") != null) {
-            this.btPrim.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btPrim.gif")));
+        if (CadastroFornecedor.class.getResource("/images/btPrim.gif") != null) {
+            this.btPrim.setIcon(new ImageIcon(CadastroFornecedor.class.getResource("/images/btPrim.gif")));
         } else {
             this.btPrim.setText("<|"); 
         }
-        if (CadastroClientes.class.getResource("/images/btUlt.gif") != null) {
-            this.btUlt.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btUlt.gif")));
+        if (CadastroFornecedor.class.getResource("/images/btUlt.gif") != null) {
+            this.btUlt.setIcon(new ImageIcon(CadastroFornecedor.class.getResource("/images/btUlt.gif")));
         } else {
             this.btUlt.setText("|>"); 
         }
-        if (CadastroClientes.class.getResource("/images/btFlechaDir.gif") != null) {
-            this.btProx.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btFlechaDir.gif")));
+        if (CadastroFornecedor.class.getResource("/images/btFlechaDir.gif") != null) {
+            this.btProx.setIcon(new ImageIcon(CadastroFornecedor.class.getResource("/images/btFlechaDir.gif")));
         } else {
             this.btProx.setText(">"); 
         }
-        if (CadastroClientes.class.getResource("/images/btFlechaEsq.gif") != null) {
-            this.btAnt.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btFlechaEsq.gif")));
+        if (CadastroFornecedor.class.getResource("/images/btFlechaEsq.gif") != null) {
+            this.btAnt.setIcon(new ImageIcon(CadastroFornecedor.class.getResource("/images/btFlechaEsq.gif")));
         } else {
             this.btAnt.setText("<"); 
         }
+        txtCode.setEditable(false);
         setAtual();
         this.setPreferredSize(new Dimension(500,350));
     }
-    public void setAtual() {
+     public void setAtual() {
         txtCode.setText(String.valueOf(atual.codigo));
         chkAtivo.setSelected(atual.ativo);
-        txtNome.setText(atual.nome);
-        lblData.setText(Funcoes.trataData(atual.data));
-        txtFantasia.setText(atual.fantasia);
-        txtCNPJ.setText(atual.cnpj);
-        txtIEST.setText(atual.inscest);
-        txtEndereco.setText(atual.endereco);
-        txtBairro.setText(atual.bairro);
-        txtNum.setText(atual.numero);
-        txtCidade.setText(atual.municipio);
-        txtEstado.setText(atual.estado);
-        txtCep.setText(atual.cep);
-        txtFone.setText(atual.fone1);
-        txtFone1.setText(atual.fone2);
-        txtEmail.setText(atual.email);       
+        txtNome.setText(atual.getNome());
+        lblData.setText(Funcoes.trataData(atual.getData()));
+        txtFantasia.setText(atual.getFantasia());
+        txtCNPJ.setText(atual.getCnpj());
+        txtIEST.setText(atual.getInscest());
+        txtEndereco.setText(atual.getEndereco());
+        txtBairro.setText(atual.getBairro());
+        txtNum.setText(atual.getNumero());
+        txtCidade.setText(atual.getMunicipio());
+        txtEstado.setText(atual.getEstado());
+        txtCep.setText(atual.getCep());
+        txtFone.setText(atual.getFone1());
+        txtFone1.setText(atual.getFone2());
+        txtEmail.setText(atual.getEmail());       
+           
     }
     
     /** This method is called from within the constructor to
@@ -175,7 +173,7 @@ public class CadastroFornecedor extends javax.swing.JPanel {
         lblCpfcnpj.setText("CNPJ: ");
         lblCpfcnpj.setFocusable(false);
 
-        lblRg.setText("INSCR. ESTADUAL");
+        lblRg.setText("Inscri\u00e7\u00e3o Estadual:");
         lblRg.setFocusable(false);
 
         lblCidade.setText("Munic\u00edpio: ");
@@ -254,10 +252,10 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                         .add(418, 418, 418))
                     .add(layout.createSequentialGroup()
                         .add(lblCpfcnpj)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 445, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 436, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(lblEndereco)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 423, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 419, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(lblCode)
@@ -270,7 +268,7 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(layout.createSequentialGroup()
                                 .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 69, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 97, Short.MAX_VALUE)
                                 .add(chkAtivo)
                                 .add(75, 75, 75)
                                 .add(lblDesde)
@@ -287,14 +285,14 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                                         .add(23, 23, 23)
                                         .add(lblRg)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(txtIEST, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
-                                    .add(txtNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                                    .add(txtFantasia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtEndereco, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                                    .add(txtEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                                        .add(txtIEST, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                                    .add(txtNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                                    .add(txtFantasia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtEndereco, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                                    .add(txtEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
                                     .add(layout.createSequentialGroup()
                                         .add(txtCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 36, Short.MAX_VALUE)
                                         .add(lblFoneFax)
                                         .add(16, 16, 16)
                                         .add(txtFone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -312,8 +310,8 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                                             .add(layout.createSequentialGroup()
                                                 .add(lblNum)
                                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtEstado, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                                                    .add(txtNum, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))))
+                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtEstado, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                                    .add(txtNum, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))))))
                                 .add(22, 22, 22)))))
                 .add(340, 340, 340))
             .add(layout.createSequentialGroup()
@@ -327,7 +325,7 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                 .add(btUlt)
                 .add(56, 56, 56)
                 .add(btNovo)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -395,10 +393,34 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(btGravar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+  
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        if (!novo) {
+            if (!atual.apagaFornecedor())
+                    Funcoes.mensagemErro("Não foi possivel apagar o Fornecedor do banco de dados. ");
+        }
+        try {
+            atuaIds();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (atualIds.last())
+                atual = new Fornecedor(atualIds.getInt(1), this.con);
+            else {
+                atual = new Fornecedor(con);
+                setAtual();
+                novo = true; 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+    }  
+    
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         if (novo) {
             try {
@@ -415,6 +437,7 @@ public class CadastroFornecedor extends javax.swing.JPanel {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         atual = new Fornecedor(con);
+        novo = true;
         setAtual();
     }//GEN-LAST:event_btNovoActionPerformed
 
@@ -454,36 +477,75 @@ public class CadastroFornecedor extends javax.swing.JPanel {
 
     private void btPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrimActionPerformed
         try {
-            if (atualIds.first())
+            if (atualIds.previous())
                 atual = new Fornecedor(atualIds.getInt(1), this.con);
+            else
+                atualIds.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         setAtual();
     }//GEN-LAST:event_btPrimActionPerformed
 
+               
+    
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_btGravarActionPerformed
-         if (novo){
+       if (novo){
             GregorianCalendar gc = new GregorianCalendar();
             lblData.setText(gc.get(gc.DAY_OF_MONTH)+"/"+gc.get(gc.MONTH)+"/"+gc.get(gc.YEAR));
-            Fornecedor fornecedor = new Fornecedor(txtNome.getText(), chkAtivo.isSelected(), gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH), txtFantasia.getText(),
-                    txtCNPJ.getText(), txtIEST.getText(), txtEndereco.getText(), txtBairro.getText(), 
-                    txtNum.getText(), txtCidade.getText(), txtEstado.getText(), txtCep.getText(), 
-                    txtFone.getText(), txtFone1.getText(), txtEmail.getText(), con);
+            if (validaDados()){
+                Fornecedor fornecedor = new Fornecedor(txtNome.getText(), chkAtivo.isSelected(), gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH), txtFantasia.getText(),
+                        txtCNPJ.getText(), txtIEST.getText(), txtEndereco.getText(), txtBairro.getText(), 
+                        txtNum.getText(), txtCidade.getText(), txtEstado.getText(), txtCep.getText(), 
+                        txtFone.getText(), txtFone1.getText(), txtEmail.getText(), con);
+            }
             try{
                 atuaIds();
                 atualIds.last();
-                txtCode.setText(atualIds.getString(1));
+                atual = new Fornecedor(atualIds.getInt(1), con);
+                setAtual();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            novo = false;
          } else {
-             
-         }
-         
+
+        if (validaDados()){
+            atual.codigo = Integer.parseInt(txtCode.getText());
+            atual.ativo = chkAtivo.isSelected();
+            atual.setNome(txtNome.getText());
+            atual.setData(lblData.getText());
+            atual.setFantasia(txtFantasia.getText());
+            atual.setCnpj(txtCNPJ.getText());
+            atual.setInscest(txtIEST.getText());
+            atual.setEndereco(txtEndereco.getText());
+            atual.setBairro(txtBairro.getText());
+            atual.setNumero(txtNum.getText());
+            atual.setMunicipio(txtCidade.getText());
+            atual.setEstado(txtEstado.getText());
+            atual.setCep(txtCep.getText());
+            atual.setFone1(txtFone.getText());
+            atual.setFone2(txtFone1.getText());
+            atual.setEmail(txtEmail.getText());
+            try {
+                atual.update();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+            }
                 
-         
+            
+         }         
     }//GEN-LAST:event_btGravarActionPerformed
+     
+    
+    protected boolean validaDados() {
+        if (CpfCnpj.isValid(txtCNPJ.getText()))
+            return true;
+        JOptionPane.showMessageDialog(null, "CNPJ invalido", "Erro em arquivo.", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
     protected void atuaIds() throws SQLException {
         try {
             Statement stmt = con.getStatement();
