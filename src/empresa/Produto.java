@@ -10,10 +10,10 @@ public class Produto {
     public int codigo;
     public boolean ativo;
     private String descricao, data, fabricante, grupo ; 
-    private float custo, venda, estoqueatual, estoquemin ;
+    private double custo, venda, estoqueatual, estoquemin ;
     private ConSQL con;
  
-    public Produto(String descricao, boolean ativo, String data, String fabricante, String grupo, float custo, float venda, float estoqueatual, float estoquemin, ConSQL con) {
+    public Produto(String descricao, boolean ativo, String data, String fabricante, String grupo, double custo, double venda, double estoqueatual, double estoquemin, ConSQL con) {
         this.descricao = descricao;
         this.ativo = ativo;
         this.data = data;
@@ -73,8 +73,8 @@ public class Produto {
             this.data = rs.getString(4);
             this.fabricante = rs.getString(5);
             this.grupo = rs.getString(6);
-            this.custo = Float.valueOf(rs.getString(7));
-            this.venda = Float.valueOf(rs.getString(8));
+            this.custo = Double.valueOf(rs.getString(7));
+            this.venda = Double.valueOf(rs.getString(8));
             this.estoqueatual = Float.valueOf(rs.getString(9));
             this.estoquemin = Float.valueOf(rs.getString(10));
             
@@ -87,7 +87,33 @@ public class Produto {
     public Produto(ConSQL con) {
         this.con = con;
     }    
-  
+    
+    
+     public boolean apagaProduto() {
+        String sql = "delete from produtos where id = "+codigo;
+        Statement stmt = con.getStatement();
+        try {
+            stmt.executeUpdate(sql);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;   
+    }
+     
+    public void update() throws SQLException{
+        String sql = "update produtos set descricao='"+descricao+"',ativo ="+ativo+",fabricante='"+fabricante+"',grupo='"+grupo+"',custo='"+custo+"',venda='"+
+                        venda+"',estoqueatual='"+estoqueatual+"',estoquemin='"+estoquemin;
+        Statement stmt = con.getStatement();
+        try {
+            stmt.executeUpdate(sql);
+            }
+        catch (SQLException e) {
+	    e.printStackTrace();
+	}
+ 
+    }
    public void setDescricao(String Descricao){
         this.descricao = Descricao;
     }
@@ -136,19 +162,19 @@ public class Produto {
         return grupo;
     }
    
-   public float getCusto(){
+   public double getCusto(){
        return custo;
     }
    
-   public float getVenda(){
+   public double getVenda(){
         return venda;
     }
    
-   public float getEstoqueAtual(){
+   public double getEstoqueAtual(){
         return estoqueatual;
     }
    
-   public float getEstoqueMin(){
+   public double getEstoqueMin(){
         return estoquemin;
     }
 

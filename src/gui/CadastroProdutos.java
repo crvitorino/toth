@@ -1,9 +1,3 @@
-/*
- * CadastroClientes.java
- *
- * Created on 1 de Agosto de 2006, 19:48
- */
-
 package gui;
 
 import app.ConSQL;
@@ -15,11 +9,9 @@ import java.sql.Statement;
 import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 import utils.Funcoes;
+import utils.KeyNumerico;
 
-/**
- *
- * @author  Karina
- */
+
 public class CadastroProdutos extends javax.swing.JPanel {
     private ConSQL con;
     private Produto atual;
@@ -44,6 +36,11 @@ public class CadastroProdutos extends javax.swing.JPanel {
             e.printStackTrace();
         }
         initComponents();
+        txtCusto.addKeyListener(new KeyNumerico(true));
+        txtVenda.addKeyListener(new KeyNumerico(true));
+        txtEstoqueAtual.addKeyListener(new KeyNumerico(true));
+        txtEstoqueMin.addKeyListener(new KeyNumerico(true));
+        
         if (CadastroProdutos.class.getResource("/images/btOk.gif") != null) {
             this.btGravar.setIcon(new ImageIcon(CadastroProdutos.class.getResource("/images/btOk.gif")));
         } else {
@@ -342,7 +339,26 @@ public class CadastroProdutos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-        
+         if (!novo) {
+            if (!atual.apagaProduto())
+                    Funcoes.mensagemErro("Não foi possivel apagar o Cliente do banco de dados. ");
+        }
+        try {
+            atuaIds();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (atualIds.last())
+                atual = new Produto(atualIds.getInt(1), this.con);
+            else {
+                atual = new Produto(con);
+                setAtual();
+                novo = true; 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btDeletarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -361,11 +377,12 @@ public class CadastroProdutos extends javax.swing.JPanel {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         atual = new Produto(con);
+        novo = true;
         setAtual();
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUltActionPerformed
-        try {
+         try {
             if (atualIds.last())
                 atual = new Produto(atualIds.getInt(1), this.con);
         } catch (SQLException e) {
@@ -375,7 +392,7 @@ public class CadastroProdutos extends javax.swing.JPanel {
     }//GEN-LAST:event_btUltActionPerformed
 
     private void btProxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProxActionPerformed
-        try {
+         try {
             if (atualIds.next())
                 atual = new Produto(atualIds.getInt(1), this.con);
             else
@@ -413,17 +430,34 @@ public class CadastroProdutos extends javax.swing.JPanel {
             GregorianCalendar gc = new GregorianCalendar();
             lblData.setText(gc.get(gc.DAY_OF_MONTH)+"/"+gc.get(gc.MONTH)+"/"+gc.get(gc.YEAR));
             Produto prod = new Produto(txtDescricao.getText(), chkAtivo.isSelected(), gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH),
-                    txtFabricante.getText(), txtGrupo.getText(), Float.valueOf(txtCusto.getText()), Float.valueOf(txtVenda.getText()), 
-                     Float.valueOf(txtEstoqueAtual.getText()),Float.valueOf(txtEstoqueMin.getText()), con);
+                    txtFabricante.getText(), txtGrupo.getText(), Double.valueOf(txtCusto.getText()), Double.valueOf(txtVenda.getText()), 
+                     Double.valueOf(txtEstoqueAtual.getText()),Double.valueOf(txtEstoqueMin.getText()), con);
             try{
                 atuaIds();
                 atualIds.last();
-                txtCode.setText(atualIds.getString(1));
+                atual = new Produto(atualIds.getInt(1), con);
+                setAtual();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             novo = false;
          } else {
+            atual.codigo = Integer.parseInt(txtCode.getText());
+            atual.ativo = chkAtivo.isSelected();
+            atual.setDescricao(txtDescricao.getText());
+            atual.setData(lblData.getText());
+            atual.setFabricante(txtFabricante.getText());
+            atual.setGrupo(txtGrupo.getText());
+            atual.setCusto(String.valueOf(txtCusto.getText()));
+            atual.setVenda(String.valueOf(txtVenda.getText()));
+            atual.setEstoqueAtual(String.valueOf(txtEstoqueAtual.getText()));
+            atual.setEstoqueMin(String.valueOf(txtEstoqueMin.getText()));
+            
+         try {
+                atual.update();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
              
          }
          

@@ -1,8 +1,4 @@
-/*
- * PedidoVenda.java
- *
- * Created on 9 de Agosto de 2006, 23:36
- */
+
 
 package gui;
 
@@ -20,15 +16,9 @@ import javax.swing.table.DefaultTableModel;
 import utils.Funcoes;
 import utils.KeyNumerico;
 
-/**
- *
- * @author  fernando
- */
 public class PedidoVenda extends javax.swing.JInternalFrame {
     
-    /**
-     * Creates new form PedidoVenda
-     */
+    
     private ResultSet atualIds;
     private ConSQL con;
     private Pedido atual;

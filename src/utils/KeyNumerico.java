@@ -1,19 +1,9 @@
-/*
- * KeyNumerico.java
- *
- * Criado em 15 de Agosto de 2006, 20:49
- *
- */
 
 package utils;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-/**
- *
- * @author Fernando Dettoni
- */
 public class KeyNumerico implements KeyListener{
     
     /** Creates a new instance of KeyNumerico */
