@@ -138,6 +138,7 @@ public class CadastroFornecedor extends javax.swing.JPanel {
         btProx = new javax.swing.JButton();
         btUlt = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
+        btDeletar = new javax.swing.JButton();
 
         setToolTipText("Cadastro de Clientes");
         setFocusable(false);
@@ -241,6 +242,13 @@ public class CadastroFornecedor extends javax.swing.JPanel {
             }
         });
 
+        btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeletarActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -252,10 +260,10 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                         .add(418, 418, 418))
                     .add(layout.createSequentialGroup()
                         .add(lblCpfcnpj)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 436, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 434, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(lblEndereco)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 419, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 417, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(lblCode)
@@ -268,7 +276,7 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(layout.createSequentialGroup()
                                 .add(txtCode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 97, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 95, Short.MAX_VALUE)
                                 .add(chkAtivo)
                                 .add(75, 75, 75)
                                 .add(lblDesde)
@@ -285,14 +293,14 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                                         .add(23, 23, 23)
                                         .add(lblRg)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(txtIEST, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
-                                    .add(txtNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-                                    .add(txtFantasia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtEndereco, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-                                    .add(txtEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                                        .add(txtIEST, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                                    .add(txtNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                                    .add(txtFantasia, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, txtEndereco, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                                    .add(txtEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                                     .add(layout.createSequentialGroup()
                                         .add(txtCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 36, Short.MAX_VALUE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 34, Short.MAX_VALUE)
                                         .add(lblFoneFax)
                                         .add(16, 16, 16)
                                         .add(txtFone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -310,8 +318,8 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                                             .add(layout.createSequentialGroup()
                                                 .add(lblNum)
                                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtEstado, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                                    .add(txtNum, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))))))
+                                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtEstado, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                                    .add(txtNum, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))))))
                                 .add(22, 22, 22)))))
                 .add(340, 340, 340))
             .add(layout.createSequentialGroup()
@@ -323,9 +331,11 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                 .add(btProx)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btUlt)
-                .add(56, 56, 56)
+                .add(65, 65, 65)
+                .add(btDeletar)
+                .add(32, 32, 32)
                 .add(btNovo)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -336,7 +346,8 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                     .add(btAnt)
                     .add(btProx)
                     .add(btUlt)
-                    .add(btNovo))
+                    .add(btNovo)
+                    .add(btDeletar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblCode)
@@ -396,11 +407,11 @@ public class CadastroFornecedor extends javax.swing.JPanel {
                 .addContainerGap(93, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-  
-    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
         if (!novo) {
             if (!atual.apagaFornecedor())
-                    Funcoes.mensagemErro("Não foi possivel apagar o Fornecedor do banco de dados. ");
+                Funcoes.mensagemErro("Não foi possivel apagar o Fornecedor do banco de dados. ");
         }
         try {
             atuaIds();
@@ -413,13 +424,14 @@ public class CadastroFornecedor extends javax.swing.JPanel {
             else {
                 atual = new Fornecedor(con);
                 setAtual();
-                novo = true; 
+                novo = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-    }  
+    }//GEN-LAST:event_btDeletarActionPerformed
+  
+   
     
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         if (novo) {
@@ -560,6 +572,7 @@ public class CadastroFornecedor extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAnt;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btDeletar;
     private javax.swing.JButton btGravar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPrim;

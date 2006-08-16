@@ -26,11 +26,11 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblCpfcnpj" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="436" max="-2" attributes="0"/>
+                      <EmptySpace pref="434" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblEndereco" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="419" max="-2" attributes="0"/>
+                      <EmptySpace pref="417" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -45,7 +45,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="txtCode" min="-2" pref="56" max="-2" attributes="0"/>
-                              <EmptySpace pref="97" max="32767" attributes="0"/>
+                              <EmptySpace pref="95" max="32767" attributes="0"/>
                               <Component id="chkAtivo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                               <Component id="lblDesde" min="-2" max="-2" attributes="0"/>
@@ -64,15 +64,15 @@
                                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                                       <Component id="lblRg" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtIEST" pref="124" max="32767" attributes="0"/>
+                                      <Component id="txtIEST" pref="122" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="txtNome" alignment="1" pref="392" max="32767" attributes="1"/>
-                                  <Component id="txtFantasia" alignment="1" pref="392" max="32767" attributes="1"/>
-                                  <Component id="txtEndereco" alignment="0" pref="392" max="32767" attributes="1"/>
-                                  <Component id="txtEmail" alignment="1" pref="392" max="32767" attributes="0"/>
+                                  <Component id="txtNome" alignment="1" pref="390" max="32767" attributes="1"/>
+                                  <Component id="txtFantasia" alignment="1" pref="390" max="32767" attributes="1"/>
+                                  <Component id="txtEndereco" alignment="0" pref="390" max="32767" attributes="1"/>
+                                  <Component id="txtEmail" alignment="1" pref="390" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="txtCep" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace pref="36" max="32767" attributes="0"/>
+                                      <EmptySpace pref="34" max="32767" attributes="0"/>
                                       <Component id="lblFoneFax" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                       <Component id="txtFone" min="-2" pref="92" max="-2" attributes="1"/>
@@ -93,8 +93,8 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lblNum" min="-2" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txtEstado" alignment="1" pref="142" max="32767" attributes="0"/>
-                                                  <Component id="txtNum" alignment="0" pref="142" max="32767" attributes="1"/>
+                                                  <Component id="txtEstado" alignment="1" pref="140" max="32767" attributes="0"/>
+                                                  <Component id="txtNum" alignment="0" pref="140" max="32767" attributes="1"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -107,7 +107,7 @@
               </Group>
               <EmptySpace min="-2" pref="340" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="btPrim" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -116,9 +116,11 @@
               <Component id="btProx" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btUlt" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+              <Component id="btDeletar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="btNovo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="196" max="32767" attributes="0"/>
+              <EmptySpace pref="86" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,6 +134,7 @@
                   <Component id="btProx" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btUlt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btNovo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btDeletar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -393,6 +396,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btDeletar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Deletar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDeletarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
