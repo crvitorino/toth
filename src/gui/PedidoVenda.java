@@ -8,11 +8,15 @@ package gui;
 
 import app.ConSQL;
 import empresa.Pedido;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JFrame;
+import java.util.GregorianCalendar;
 import javax.swing.table.DefaultTableModel;
+import utils.Funcoes;
+import utils.KeyNumerico;
 
 /**
  *
@@ -32,6 +36,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     public PedidoVenda(ConSQL con, Principal frame) {
         super("Pedido de Venda", false, true, false, true);
         principal = frame;
+       
         this.con = con;
         tbModel =  new DefaultTableModel(new Object [][] { },
             new String [] {
@@ -55,14 +60,30 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         this.con = con;
         initComponents();
         //setAtual();
-        
+        txtNome.setEditable(false);
+        txtCpf.setEditable(false);
+        txtData.setEditable(false);
+        txtEndereco.setEditable(false);
+        txtEstado.setEditable(false);
+        txtFone.setEditable(false);
+        txtFone2.setEditable(false);
+        txtPedido.setEditable(false);
+        txtVlTotal.setEditable(false);
+        txtNumero.setEditable(false);
+        txtMunicipio.setEditable(false);
+        txtCodCliente.addKeyListener(new KeyNumerico(true));
+        txtCodCliente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                recebeId(Integer.parseInt(txtCodCliente.getText()));
+            }
+        });
         
         
 
     }
-    protected void setAtual() {
+    protected void setClienteAtual() {
         txtPedido.setText(String.valueOf(atual.getId()));
-        txtData.setText(atual.getData());
+        txtData.setText(Funcoes.trataData(atual.getData()));
         txtCodCliente.setText(String.valueOf(atual.getIdCliente()));
         txtNome.setText(atual.getCliente().nome);
         txtCpf.setText(atual.getCliente().cpf);
@@ -200,7 +221,29 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         jScrollPane1.setMinimumSize(new java.awt.Dimension(552, 130));
         jScrollPane1.setOpaque(false);
         jScrollPane1.setRequestFocusEnabled(false);
-        tbItens.setModel(tbModel);
+        tbItens.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Produto", "Quantidade", "Val. Bruto", "Desc.", "Val. Unit", "Val. Total"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbItens.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbItens.setMaximumSize(new java.awt.Dimension(650, 112));
         tbItens.setMinimumSize(new java.awt.Dimension(650, 112));
@@ -331,12 +374,12 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 66, Short.MAX_VALUE)
                                 .add(jLabel2)
                                 .add(12, 12, 12)))
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
                                 .add(btDeletar)
                                 .add(24, 24, 24)
                                 .add(btNovo))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, txtData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(txtData, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 81, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
@@ -469,7 +512,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscaActionPerformed
-        BuscaCliente busca = new BuscaCliente(this);
+        BuscaCliente busca = new BuscaCliente(con, this);
         principal.addFrame(busca);
         busca.pack();
         busca.setVisible(true);
@@ -499,6 +542,13 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_btPrimActionPerformed
     
+    public void recebeId(int cod) {
+        GregorianCalendar gc = new GregorianCalendar();
+        atual = new Pedido(cod, gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH), con);
+        setClienteAtual();
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdd;
     private javax.swing.JButton btAnt;
@@ -509,7 +559,6 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     private javax.swing.JButton btEfetivar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btPrim;
-    private javax.swing.JButton btPrim1;
     private javax.swing.JButton btProx;
     private javax.swing.JButton btUlt;
     private javax.swing.JLabel jLabel1;
@@ -525,7 +574,6 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbDesc;
     private javax.swing.JLabel lbForma;
     private javax.swing.JTable tbItens;
