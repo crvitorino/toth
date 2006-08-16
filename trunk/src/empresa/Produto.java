@@ -65,6 +65,9 @@ public class Produto {
         
         
       }
+    public String[] getDadosPedido() {
+        
+    }
     public Produto(int id, ConSQL con) throws SQLException{
         String sql = "select * from produtos where id="+id;
         this.con = con;

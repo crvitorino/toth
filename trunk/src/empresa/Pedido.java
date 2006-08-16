@@ -11,6 +11,7 @@ import app.ConSQL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 /**
  *
@@ -19,17 +20,18 @@ import java.sql.Statement;
 public class Pedido {
     
     private int id, idCliente, qtdade;
-    private ItemPedido[] itens;
+    private Vector itens;
     private double vlTotal, desc;
     private String data, formaPag;
     private Cliente cliente;
-    ConSQL con;
+    private ConSQL con;
     
     /** Creates a new instance of Pedido */
     public Pedido(int idCliente, String data, ConSQL con) {
         this.idCliente = idCliente;
         this.data = data;
         this.con = con;
+        itens = new Vector();
         try {
             this.cliente = new Cliente(idCliente, con);
             gravarDadosNovo();
@@ -53,6 +55,7 @@ public class Pedido {
     public Pedido(int id, ConSQL con) throws SQLException{
         String sql = "select * from pedido where id="+id;
         this.con = con;
+        itens = new Vector();
         
         try {
             Statement stmt = con.getStatement();
@@ -72,6 +75,10 @@ public class Pedido {
     }
     public Pedido(ConSQL con) {
         this.con = con;
+        itens = new Vector();
+    }
+    public void addItem(Produto itm) {
+        itens.addElement(itm);
     }
     public boolean apagaUsuario() {
         String sql = "delete from pedido where id = "+id;
@@ -85,6 +92,9 @@ public class Pedido {
         }
         return true;
         
+    }
+    public Vector getItens() {
+        return itens;
     }
     public Cliente getCliente() {
         return cliente;
