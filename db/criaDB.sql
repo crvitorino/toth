@@ -54,4 +54,12 @@ CREATE CACHED TABLE PRODUTOS(
         VENDA DOUBLE,
 	ESTOQUEATUAL DOUBLE,
 	ESTOQUEMIN DOUBLE);
+CREATE table pedido(
+	id integer identity,
+	idcliente integer not null,
+	data date not null,
+	qtdade integer,
+	formapag VARCHAR(60),
+	vlTotal DOUBLE,
+	desc DOUBLE);
 	
