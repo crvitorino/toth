@@ -8,12 +8,14 @@ package gui;
 
 import app.ConSQL;
 import empresa.Pedido;
+import empresa.Produto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import utils.Funcoes;
 import utils.KeyNumerico;
@@ -32,18 +34,18 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     private Pedido atual;
     private boolean novo = false;
     private Principal principal;
+    private Vector colunas;
     
     public PedidoVenda(ConSQL con, Principal frame) {
         super("Pedido de Venda", false, true, false, true);
         principal = frame;
        
         this.con = con;
-        tbModel =  new DefaultTableModel(new Object [][] { },
-            new String [] {
-                "Código", "Produto", "Quantidade", "Val. Bruto", "Desc.", "Val. Unit", "Val. Total"
-            }
-
-        );
+        colunas = new Vector();
+        String[] cols = {"Código", "Produto", "Quantidade", "Val. Bruto", "Desc.", "Val. Unit", "Val. Total"};
+        for (int i=0; i<7; i++)
+            colunas.addElement(cols[i]);
+        tbModel =  new DefaultTableModel(new Object [][] { }, cols);
         try {
             atuaIds();
             if (atualIds.first())
@@ -508,7 +510,10 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btDelItActionPerformed
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
-// TODO add your handling code here:
+        BuscaProduto busca = new BuscaProduto(con, this);
+        principal.addFrame(busca);
+        busca.pack();
+        busca.setVisible(true);
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscaActionPerformed
@@ -546,6 +551,20 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         GregorianCalendar gc = new GregorianCalendar();
         atual = new Pedido(cod, gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH), con);
         setClienteAtual();
+        
+    }
+    public void recebeIdProduto(int cod) {
+        Produto atualProd =  null;
+        try {
+            atualProd = new Produto(cod, con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        atual.addItem(atualProd);
+        tbModel.setDataVector(atual.getItens(), colunas);
+        
+        
+        
         
     }
     
