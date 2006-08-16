@@ -561,7 +561,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
         atual.addItem(atualProd);
-        tbModel.setDataVector(atual.getItens(), colunas);
+  //      tbModel.setDataVector(atual.getItens(), colunas);
         
         
         
