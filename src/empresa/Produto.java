@@ -1,10 +1,3 @@
-/*
- * Cliente.java
- *
- * Criado em 3 de Agosto de 2006, 22:46
- *
- */
-
 package empresa;
 
 import app.ConSQL;
@@ -12,21 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author Fernando Dettoni
- */
+
 public class Produto {
     public int codigo;
     public boolean ativo;
-    public String descricao, data, fabricante, grupo, custo, venda, estoqueatual, estoquemin ; 
+    private String descricao, data, fabricante, grupo ; 
+    private float custo, venda, estoqueatual, estoquemin ;
     private ConSQL con;
-
-    /**
-     * Creates a new instance of Cliente
-     */
-    
-    public Produto(String descricao, boolean ativo, String data, String fabricante, String grupo, String custo, String venda, String estoqueatual, String estoquemin, ConSQL con) {
+ 
+    public Produto(String descricao, boolean ativo, String data, String fabricante, String grupo, float custo, float venda, float estoqueatual, float estoquemin, ConSQL con) {
         this.descricao = descricao;
         this.ativo = ativo;
         this.data = data;
@@ -66,7 +53,11 @@ public class Produto {
         
       }
     public String[] getDadosPedido() {
-        return null;
+
+     return null;   
+
+
+
     }
     public Produto(int id, ConSQL con) throws SQLException{
         String sql = "select * from produtos where id="+id;
@@ -82,10 +73,10 @@ public class Produto {
             this.data = rs.getString(4);
             this.fabricante = rs.getString(5);
             this.grupo = rs.getString(6);
-            this.custo = rs.getString(7);
-            this.venda = rs.getString(8);
-            this.estoqueatual = rs.getString(9);
-            this.estoquemin = rs.getString(10);
+            this.custo = Float.valueOf(rs.getString(7));
+            this.venda = Float.valueOf(rs.getString(8));
+            this.estoqueatual = Float.valueOf(rs.getString(9));
+            this.estoquemin = Float.valueOf(rs.getString(10));
             
         } catch (SQLException e){
             e.printStackTrace();
@@ -96,6 +87,70 @@ public class Produto {
     public Produto(ConSQL con) {
         this.con = con;
     }    
+  
+   public void setDescricao(String Descricao){
+        this.descricao = Descricao;
+    }
     
+   public void setData(String Data){
+        this.data = Data;
+    }
+   
+   public void setFabricante(String Fabricante){
+        this.fabricante = Fabricante;
+    }
+   
+   public void setGrupo(String Grupo){
+        this.grupo = Grupo;
+    }
+   
+   public void setCusto(String Custo){
+       this.custo = Float.valueOf(Custo);
+    }
+   
+   public void setVenda(String Venda){
+        this.venda = Float.valueOf(Venda);
+    }
+   
+   public void setEstoqueAtual(String Atual){
+       this.estoqueatual = Float.valueOf(Atual);
+    }
+   
+   public void setEstoqueMin(String Min){
+      this.estoquemin = Float.valueOf(Min);
+    }
+   
+   public String getDescricao(){
+        return descricao;
+    }
+   
+   public String getData(){
+        return data;
+    }
+   
+   public String getFabricante(){
+        return fabricante;
+    }
+   
+   public String getGrupo(){
+        return grupo;
+    }
+   
+   public float getCusto(){
+       return custo;
+    }
+   
+   public float getVenda(){
+        return venda;
+    }
+   
+   public float getEstoqueAtual(){
+        return estoqueatual;
+    }
+   
+   public float getEstoqueMin(){
+        return estoquemin;
+    }
+
     
 }

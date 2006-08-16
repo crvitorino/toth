@@ -44,50 +44,51 @@ public class CadastroProdutos extends javax.swing.JPanel {
             e.printStackTrace();
         }
         initComponents();
-        if (CadastroClientes.class.getResource("/images/btOk.gif") != null) {
-            this.btGravar.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btOk.gif")));
+        if (CadastroProdutos.class.getResource("/images/btOk.gif") != null) {
+            this.btGravar.setIcon(new ImageIcon(CadastroProdutos.class.getResource("/images/btOk.gif")));
         } else {
             this.btGravar.setText("Gravar"); 
         }
-        if (CadastroClientes.class.getResource("/images/btCancelar.gif") != null) {
-            this.btCancelar.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btCancelar.gif")));
+        if (CadastroProdutos.class.getResource("/images/btCancelar.gif") != null) {
+            this.btCancelar.setIcon(new ImageIcon(CadastroProdutos.class.getResource("/images/btCancelar.gif")));
         } else {
             this.btCancelar.setText("Cancelar");
         }
-        if (CadastroClientes.class.getResource("/images/btPrim.gif") != null) {
-            this.btPrim.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btPrim.gif")));
+        if (CadastroProdutos.class.getResource("/images/btPrim.gif") != null) {
+            this.btPrim.setIcon(new ImageIcon(CadastroProdutos.class.getResource("/images/btPrim.gif")));
         } else {
             this.btPrim.setText("<|"); 
         }
-        if (CadastroClientes.class.getResource("/images/btUlt.gif") != null) {
-            this.btUlt.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btUlt.gif")));
+        if (CadastroProdutos.class.getResource("/images/btUlt.gif") != null) {
+            this.btUlt.setIcon(new ImageIcon(CadastroProdutos.class.getResource("/images/btUlt.gif")));
         } else {
             this.btUlt.setText("|>"); 
         }
-        if (CadastroClientes.class.getResource("/images/btFlechaDir.gif") != null) {
-            this.btProx.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btFlechaDir.gif")));
+        if (CadastroProdutos.class.getResource("/images/btFlechaDir.gif") != null) {
+            this.btProx.setIcon(new ImageIcon(CadastroProdutos.class.getResource("/images/btFlechaDir.gif")));
         } else {
             this.btProx.setText(">"); 
         }
-        if (CadastroClientes.class.getResource("/images/btFlechaEsq.gif") != null) {
-            this.btAnt.setIcon(new ImageIcon(CadastroClientes.class.getResource("/images/btFlechaEsq.gif")));
+        if (CadastroProdutos.class.getResource("/images/btFlechaEsq.gif") != null) {
+            this.btAnt.setIcon(new ImageIcon(CadastroProdutos.class.getResource("/images/btFlechaEsq.gif")));
         } else {
             this.btAnt.setText("<"); 
         }
+        txtCode.setEditable(false);
         setAtual();
         this.setPreferredSize(new Dimension(500,350));
     }
     public void setAtual() {
         txtCode.setText(String.valueOf(atual.codigo));
         chkAtivo.setSelected(atual.ativo);
-        txtDescricao.setText(atual.descricao);
-        lblData.setText(Funcoes.trataData(atual.data));
-        txtFabricante.setText(atual.fabricante);
-        txtGrupo.setText(atual.grupo);
-        txtCusto.setText(atual.custo);
-        txtVenda.setText(atual.venda);
-        txtEstoqueAtual.setText(atual.estoqueatual);
-        txtEstoqueMin.setText(atual.estoquemin);
+        txtDescricao.setText(atual.getDescricao());
+        lblData.setText(Funcoes.trataData(atual.getData()));
+        txtFabricante.setText(atual.getFabricante());
+        txtGrupo.setText(atual.getGrupo());
+        txtCusto.setText(String.valueOf(atual.getCusto()));
+        txtVenda.setText(String.valueOf(atual.getVenda()));
+        txtEstoqueAtual.setText(String.valueOf(atual.getEstoqueAtual()));
+        txtEstoqueMin.setText(String.valueOf(atual.getEstoqueMin()));
       
     }
     
@@ -412,8 +413,8 @@ public class CadastroProdutos extends javax.swing.JPanel {
             GregorianCalendar gc = new GregorianCalendar();
             lblData.setText(gc.get(gc.DAY_OF_MONTH)+"/"+gc.get(gc.MONTH)+"/"+gc.get(gc.YEAR));
             Produto prod = new Produto(txtDescricao.getText(), chkAtivo.isSelected(), gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH),
-                    txtFabricante.getText(), txtGrupo.getText(), txtCusto.getText(), txtVenda.getText(), 
-                    txtEstoqueMin.getText(), txtEstoqueAtual.getText(), con);
+                    txtFabricante.getText(), txtGrupo.getText(), Float.valueOf(txtCusto.getText()), Float.valueOf(txtVenda.getText()), 
+                     Float.valueOf(txtEstoqueAtual.getText()),Float.valueOf(txtEstoqueMin.getText()), con);
             try{
                 atuaIds();
                 atualIds.last();
