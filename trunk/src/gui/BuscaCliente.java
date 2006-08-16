@@ -9,10 +9,12 @@
 
 package gui;
 
+import Componentes.ModeloTabela;
 import app.ConSQL;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -26,7 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -37,35 +39,72 @@ public class BuscaCliente extends JInternalFrame{
     /** Creates a new instance of BuscaCliente */
     private ConSQL con;
     private JTable tabela;
-    private JLabel lbNome, lbCPF, lbFantasia;
-    private JButton pesquisar;
-    private DefaultTableModel tbModel;
-    private JTextField txtNome, txtCPF, txtFantasia;
-    public BuscaCliente(JInternalFrame frame) {
+    private JLabel lbNome, lbCPF;
+    private JButton btPesquisar, btSelecionar;
+    private ModeloTabela tbModel;
+    private JTextField txtNome, txtCPF;
+    private Vector colunas;
+    private PedidoVenda pedido;
+    public BuscaCliente(ConSQL con, PedidoVenda pedido) {
         super("Busca de Clientes", false, true, false, true);
+        this.pedido = pedido;
+        this.con = con;
         this.setLayout(new FlowLayout());
-        this.setPreferredSize(new Dimension(700, 600));
-        tbModel =  new DefaultTableModel(new Object [][] { },
-            new String [] {"Código", "Nome", "Fantasia", "CPF/CNPJ", "Cidade", "Estado"}
-        );
+        this.setPreferredSize(new Dimension(700, 190));
+        colunas = new Vector();
+        String[] cols = {"Código", "Nome", "Fantasia", "CPF/CNPJ", "Cidade", "Estado"};
+        for (int i=0; i<6; i++)
+            colunas.addElement(cols[i]);
+        
+        tbModel =  new ModeloTabela(new Object [][] { }, cols);
+        
         lbNome = new JLabel("Nome: ");
-        txtNome = new JTextField();
-        pesquisar = new JButton("Pesquisar: ");
-        JScrollPane scroll = new JScrollPane();
+        lbCPF = new JLabel("CPF/CNPJ: ");
+        txtNome = new JTextField(10);
+        txtCPF = new JTextField(10);
+        btPesquisar = new JButton("Pesquisar");
+        btSelecionar =  new JButton("Selecionar");
+        JScrollPane scroll = new JScrollPane();  
         tabela = new JTable();
+        
+        
         tabela.setModel(tbModel);
         tabela.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabela.setMaximumSize(new java.awt.Dimension(650, 112));
         tabela.setMinimumSize(new java.awt.Dimension(650, 112));
         tabela.setOpaque(false);
         tabela.setPreferredSize(new java.awt.Dimension(650, 112));
+        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         scroll.setViewportView(tabela);
+        scroll.setPreferredSize(new Dimension(650, 115));
+        
         this.add(lbNome);
         this.add(txtNome);
-        this.add(pesquisar);
+        this.add(lbCPF);
+        this.add(txtCPF);
+        this.add(btPesquisar);
+        this.add(btSelecionar);
         this.add(scroll);
         
+        btPesquisar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                getTable();
+            }
+        });
+        btSelecionar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                selecionaValor();
+            }
+        });
+               
         
+    }
+    private void selecionaValor() {
+        int indice = tabela.getSelectedRow();
+        int id  = Integer.parseInt(tbModel.getValueAt(indice, 0).toString());
+        pedido.recebeId(id);
+        this.dispose();
         
         
         
@@ -75,12 +114,19 @@ public class BuscaCliente extends JInternalFrame{
         Statement statement; 
         ResultSet resultset; 
  
-        try { 
-            String query = "Select codigo,nome,fantasia, cpf, cidade, estado from clientes where nome LIKE '"+txtNome.getText()+"' order by nome "; 
+        try {
+            String query;
+            if (!txtNome.getText().equals("") && !txtCPF.getText().equals("")) 
+                query = "Select id,nome,fantasia, cpf, cidade, estado from clientes where upper(nome) LIKE '"+txtNome.getText().toUpperCase()+"%' AND cpf = '"+txtCPF.getText()+"' order by nome";
+            else if (!txtNome.getText().equals(""))
+                query = "Select id,nome,fantasia, cpf, cidade, estado from clientes where upper(nome) LIKE '"+txtNome.getText().toUpperCase()+"%' order by nome";
+            else if (!txtCPF.getText().equals(""))
+                query = "Select id,nome,fantasia, cpf, cidade, estado from clientes where cpf = '"+txtCPF.getText()+" order by nome";
+            else
+                query = "Select id,nome,fantasia, cpf, cidade, estado from clientes order by nome";
             statement = con.getStatement(); 
             resultset = statement.executeQuery(query); 
             displayResultSet(resultset); 
-            statement.close(); 
         } 
         catch ( SQLException sqlex ) { 
             sqlex.printStackTrace(); 
@@ -95,24 +141,19 @@ public class BuscaCliente extends JInternalFrame{
     return; 
     } 
  
-    Vector columnHeads = new Vector(); 
+
     Vector rows = new Vector(); 
  
     try { 
         ResultSetMetaData rsmd = rs.getMetaData(); 
         
-        for (int i = 1; i <= rsmd.getColumnCount(); ++i) 
-            columnHeads.addElement(rsmd.getColumnName(i)); 
  
         do { 
             rows.addElement(getNextRow(rs, rsmd)); 
-        } while (rs.next()); 
- 
-        tabela = new JTable(rows, columnHeads); 
-        JScrollPane scroller = new JScrollPane(tabela); 
-        add(scroller,BorderLayout.CENTER); 
-        scroller.setPreferredSize(new java.awt.Dimension(447, 353));
-        validate(); 
+        } while (rs.next());
+        
+        tbModel.setDataVector(rows, colunas);
+        
     } catch (SQLException sqlex) { 
         sqlex.printStackTrace(); 
     } 

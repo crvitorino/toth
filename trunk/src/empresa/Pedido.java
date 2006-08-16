@@ -26,13 +26,9 @@ public class Pedido {
     ConSQL con;
     
     /** Creates a new instance of Pedido */
-    public Pedido(int idCliente, int qtdade, String data, double vlTotal, double desc, String formaPag, ConSQL con) {
+    public Pedido(int idCliente, String data, ConSQL con) {
         this.idCliente = idCliente;
-        this.qtdade = qtdade;
         this.data = data;
-        this.vlTotal = vlTotal;
-        this.desc = desc;
-        this.formaPag = formaPag;
         this.con = con;
         try {
             this.cliente = new Cliente(idCliente, con);
