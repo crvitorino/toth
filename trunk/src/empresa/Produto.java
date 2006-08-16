@@ -2,8 +2,11 @@ package empresa;
 
 import app.ConSQL;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
+import java.util.Vector;
 
 
 public class Produto {
@@ -52,13 +55,37 @@ public class Produto {
         
         
       }
-    public String[] getDadosPedido() {
-
-     return null;   
-
-
-
+    public Vector getVector() {
+        String sql = "select * from produtos where id="+codigo;
+        Vector currentRow =  null;
+        try{
+            Statement stmt = con.getStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+        
+            ResultSetMetaData rsmd = rs.getMetaData();
+            currentRow = new Vector(); 
+            for (int i = 1; i <= rsmd.getColumnCount(); ++i) 
+                switch(rsmd.getColumnType(i)) { 
+                    case Types.VARCHAR: currentRow.addElement(rs.getString(i)); 
+                    break; 
+                    case Types.INTEGER:currentRow.addElement(new Integer(rs.getInt(i))); 
+                    break; 
+                    case Types.DOUBLE:currentRow.addElement(new Double(rs.getDouble(i))); 
+                    break;
+                    case Types.BOOLEAN:currentRow.addElement(new Boolean(rs.getBoolean(i))); 
+                    break;
+                    case Types.DATE:currentRow.addElement(new String(rs.getString(i))); 
+                    break;
+                    default: System.out.println("Tipo dos Dados: " + rsmd.getColumnTypeName(i)); 
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return currentRow;
+            
     }
+    
     public Produto(int id, ConSQL con) throws SQLException{
         String sql = "select * from produtos where id="+id;
         this.con = con;
@@ -73,10 +100,10 @@ public class Produto {
             this.data = rs.getString(4);
             this.fabricante = rs.getString(5);
             this.grupo = rs.getString(6);
-            this.custo = Double.valueOf(rs.getString(7));
-            this.venda = Double.valueOf(rs.getString(8));
-            this.estoqueatual = Float.valueOf(rs.getString(9));
-            this.estoquemin = Float.valueOf(rs.getString(10));
+            this.custo = rs.getDouble(7);
+            this.venda = rs.getDouble(8);
+            this.estoqueatual = rs.getDouble(9);
+            this.estoquemin = rs.getDouble(10);
             
         } catch (SQLException e){
             e.printStackTrace();

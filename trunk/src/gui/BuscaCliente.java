@@ -34,21 +34,16 @@ import javax.swing.ListSelectionModel;
  *
  * @author fernando
  */
-public class BuscaCliente extends JInternalFrame{
+public class BuscaCliente extends Busca{
     
     /** Creates a new instance of BuscaCliente */
-    private ConSQL con;
-    private JTable tabela;
+    
     private JLabel lbNome, lbCPF;
-    private JButton btPesquisar, btSelecionar;
-    private ModeloTabela tbModel;
     private JTextField txtNome, txtCPF;
-    private Vector colunas;
-    private PedidoVenda pedido;
     public BuscaCliente(ConSQL con, PedidoVenda pedido) {
-        super("Busca de Clientes", false, true, false, true);
+        super("Busca de Clientes");
         this.pedido = pedido;
-        this.con = con;
+        super.con = con;
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(700, 190));
         colunas = new Vector();
@@ -57,7 +52,6 @@ public class BuscaCliente extends JInternalFrame{
             colunas.addElement(cols[i]);
         
         tbModel =  new ModeloTabela(new Object [][] { }, cols);
-        
         lbNome = new JLabel("Nome: ");
         lbCPF = new JLabel("CPF/CNPJ: ");
         txtNome = new JTextField(10);
@@ -86,6 +80,7 @@ public class BuscaCliente extends JInternalFrame{
         this.add(btPesquisar);
         this.add(btSelecionar);
         this.add(scroll);
+      
         
         btPesquisar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -100,15 +95,18 @@ public class BuscaCliente extends JInternalFrame{
                
         
     }
-    private void selecionaValor() {
+      protected void selecionaValor() {
         int indice = tabela.getSelectedRow();
-        int id  = Integer.parseInt(tbModel.getValueAt(indice, 0).toString());
-        pedido.recebeId(id);
-        this.dispose();
-        
-        
+        if (indice > -1) {
+            int id  = Integer.parseInt(tbModel.getValueAt(indice, 0).toString());
+            pedido.recebeId(id);
+            this.dispose();
+        } else 
+            JOptionPane.showMessageDialog(this, "Nenhum cliente foi selecionado!","Cliente não selecionado", JOptionPane.ERROR_MESSAGE);
         
     }
+
+
     private void getTable() {
       
         Statement statement; 
@@ -132,47 +130,5 @@ public class BuscaCliente extends JInternalFrame{
             sqlex.printStackTrace(); 
         } 
     } 
- 
- private void displayResultSet(ResultSet rs ) throws SQLException { 
-    boolean moreRecords = rs.next(); 
-    if (! moreRecords) { 
-        JOptionPane.showMessageDialog(this, "Nao existem registros na tabela!!"); 
-    //setTitle(); 
-    return; 
-    } 
- 
-
-    Vector rows = new Vector(); 
- 
-    try { 
-        ResultSetMetaData rsmd = rs.getMetaData(); 
-        
- 
-        do { 
-            rows.addElement(getNextRow(rs, rsmd)); 
-        } while (rs.next());
-        
-        tbModel.setDataVector(rows, colunas);
-        
-    } catch (SQLException sqlex) { 
-        sqlex.printStackTrace(); 
-    } 
- } 
- 
- private Vector getNextRow( ResultSet rs, ResultSetMetaData rsmd) throws SQLException { 
-    Vector currentRow = new Vector(); 
-    for (int i = 1; i <= rsmd.getColumnCount(); ++i) 
-        switch(rsmd.getColumnType(i)) { 
-            case Types.VARCHAR: currentRow.addElement(rs.getString(i)); 
-            break; 
-            case Types.INTEGER:currentRow.addElement(new Long(rs.getLong(i))); 
-            break; 
-            /*case Types.LONGCHAR:currentRow.addElement(rs.getString(i)); 
-            break;*/ 
-            default: System.out.println("Tipo dos Dados: " + rsmd.getColumnTypeName(i)); 
-        } 
-    return currentRow; 
- } 
- 
  } 
    

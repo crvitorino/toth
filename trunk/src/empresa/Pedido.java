@@ -78,7 +78,7 @@ public class Pedido {
         itens = new Vector();
     }
     public void addItem(Produto itm) {
-        itens.addElement(itm);
+        itens.addElement(itm.getVector());
     }
     public boolean apagaUsuario() {
         String sql = "delete from pedido where id = "+id;

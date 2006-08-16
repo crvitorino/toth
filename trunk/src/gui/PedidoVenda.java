@@ -224,29 +224,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         jScrollPane1.setMinimumSize(new java.awt.Dimension(552, 130));
         jScrollPane1.setOpaque(false);
         jScrollPane1.setRequestFocusEnabled(false);
-        tbItens.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Produto", "Quantidade", "Val. Bruto", "Desc.", "Val. Unit", "Val. Total"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        tbItens.setModel(tbModel);
         tbItens.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbItens.setMaximumSize(new java.awt.Dimension(650, 112));
         tbItens.setMinimumSize(new java.awt.Dimension(650, 112));
@@ -562,7 +540,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
         atual.addItem(atualProd);
-  //      tbModel.setDataVector(atual.getItens(), colunas);
+        tbModel.setDataVector(atual.getItens(), colunas);
         
         
         

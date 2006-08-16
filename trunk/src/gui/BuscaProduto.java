@@ -34,19 +34,14 @@ import javax.swing.ListSelectionModel;
  *
  * @author fernando
  */
-public class BuscaProduto extends JInternalFrame{
+public class BuscaProduto extends Busca{
     
     /** Creates a new instance of BuscaCliente */
-    private ConSQL con;
-    private JTable tabela;
     private JLabel lbNome, lbFab;
     private JButton btPesquisar, btSelecionar;
-    private ModeloTabela tbModel;
     private JTextField txtNome, txtFab;
-    private Vector colunas;
-    private PedidoVenda pedido;
     public BuscaProduto(ConSQL con, PedidoVenda pedido) {
-        super("Busca de Produtos", false, true, false, true);
+        super("Busca de Produtos");
         this.pedido = pedido;
         this.con = con;
         this.setLayout(new FlowLayout());
@@ -100,13 +95,14 @@ public class BuscaProduto extends JInternalFrame{
                
         
     }
-    private void selecionaValor() {
+    protected void selecionaValor() {
         int indice = tabela.getSelectedRow();
-        int id  = Integer.parseInt(tbModel.getValueAt(indice, 0).toString());
-        pedido.recebeIdProduto(id);
-        this.dispose();
-        
-        
+        if (indice > -1) {
+            int id  = Integer.parseInt(tbModel.getValueAt(indice, 0).toString());
+            pedido.recebeIdProduto(id);
+            this.dispose();
+        } else 
+            JOptionPane.showMessageDialog(this, "Nenhum cliente foi selecionado!","Cliente não selecionado", JOptionPane.ERROR_MESSAGE);
         
     }
     private void getTable() {
@@ -132,47 +128,5 @@ public class BuscaProduto extends JInternalFrame{
             sqlex.printStackTrace(); 
         } 
     } 
- 
- private void displayResultSet(ResultSet rs ) throws SQLException { 
-    boolean moreRecords = rs.next(); 
-    if (! moreRecords) { 
-        JOptionPane.showMessageDialog(this, "Nao existem registros na tabela!!"); 
-    //setTitle(); 
-    return; 
-    } 
- 
-
-    Vector rows = new Vector(); 
- 
-    try { 
-        ResultSetMetaData rsmd = rs.getMetaData(); 
-        
- 
-        do { 
-            rows.addElement(getNextRow(rs, rsmd)); 
-        } while (rs.next());
-        
-        tbModel.setDataVector(rows, colunas);
-        
-    } catch (SQLException sqlex) { 
-        sqlex.printStackTrace(); 
-    } 
- } 
- 
- private Vector getNextRow( ResultSet rs, ResultSetMetaData rsmd) throws SQLException { 
-    Vector currentRow = new Vector(); 
-    for (int i = 1; i <= rsmd.getColumnCount(); ++i) 
-        switch(rsmd.getColumnType(i)) { 
-            case Types.VARCHAR: currentRow.addElement(rs.getString(i)); 
-            break; 
-            case Types.INTEGER:currentRow.addElement(new Long(rs.getLong(i))); 
-            break; 
-            /*case Types.LONGCHAR:currentRow.addElement(rs.getString(i)); 
-            break;*/ 
-            default: System.out.println("Tipo dos Dados: " + rsmd.getColumnTypeName(i)); 
-        } 
-    return currentRow; 
- } 
- 
- } 
+} 
    
