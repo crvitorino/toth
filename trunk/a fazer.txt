@@ -1,6 +1,6 @@
 Coisas a fazer
 
-1. Validacao para deletar
+1. Validacao para deletar - OK - Fernando Dettoni
 2. Deixar apenas uma janela
 3. Calendário
 4. Relatórios
