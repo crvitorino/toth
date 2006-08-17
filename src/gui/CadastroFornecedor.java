@@ -409,6 +409,8 @@ public class CadastroFornecedor extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
+        int i = JOptionPane.showConfirmDialog(this, "Será apagado o usuário atual.", "Apagar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (i==JOptionPane.YES_OPTION){ 
         if (!novo) {
             if (!atual.apagaFornecedor())
                 Funcoes.mensagemErro("Não foi possivel apagar o Fornecedor do banco de dados. ");
@@ -419,8 +421,10 @@ public class CadastroFornecedor extends javax.swing.JPanel {
             e.printStackTrace();
         }
         try {
-            if (atualIds.last())
+            if (atualIds.last()) {
                 atual = new Fornecedor(atualIds.getInt(1), this.con);
+                setAtual();                        
+            }
             else {
                 atual = new Fornecedor(con);
                 setAtual();
@@ -428,6 +432,7 @@ public class CadastroFornecedor extends javax.swing.JPanel {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
         }
     }//GEN-LAST:event_btDeletarActionPerformed
   

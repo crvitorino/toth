@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import utils.Funcoes;
 import utils.KeyNumerico;
 
@@ -339,7 +340,9 @@ public class CadastroProdutos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-         if (!novo) {
+        int i = JOptionPane.showConfirmDialog(this, "Será apagado o produto atual.", "Apagar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (i==JOptionPane.YES_OPTION){
+        if (!novo) {
             if (!atual.apagaProduto())
                     Funcoes.mensagemErro("Não foi possivel apagar o Cliente do banco de dados. ");
         }
@@ -349,8 +352,10 @@ public class CadastroProdutos extends javax.swing.JPanel {
             e.printStackTrace();
         }
         try {
-            if (atualIds.last())
+            if (atualIds.last()) {
                 atual = new Produto(atualIds.getInt(1), this.con);
+                setAtual();
+            }
             else {
                 atual = new Produto(con);
                 setAtual();
@@ -358,6 +363,7 @@ public class CadastroProdutos extends javax.swing.JPanel {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
         }
     }//GEN-LAST:event_btDeletarActionPerformed
 
