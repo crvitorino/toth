@@ -267,27 +267,32 @@ public class CadastroUsuarios extends JPanel{
         );
     }
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {
-        
-        if (!novo) {
-            if (!atual.apagaUsuario())
-                    Funcoes.mensagemErro("Não foi possivel apagar o usuario do banco de dados. ");
-        }
-        try {
-            atuaIds();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (atualIds.last())
-                atual = new Usuario(atualIds.getInt(1), this.con);
-            else {
-                atual = new Usuario(con);
-                setAtual();
-                btSenha.setEnabled(false);
-                novo = true; 
+        int i = JOptionPane.showConfirmDialog(this, "Será apagado o usuário atual.", "Apagar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (i==JOptionPane.YES_OPTION){        
+            if (!novo) {
+                if (!atual.apagaUsuario())
+                        Funcoes.mensagemErro("Não foi possivel apagar o usuario do banco de dados. ");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                atuaIds();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (atualIds.last()) {
+                    atual = new Usuario(atualIds.getInt(1), this.con);
+                    setAtual();
+                    btSenha.setEnabled(true);                    
+                }
+                else {
+                    atual = new Usuario(con);
+                    setAtual();
+                    btSenha.setEnabled(false);
+                    novo = true; 
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {

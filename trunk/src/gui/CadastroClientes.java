@@ -408,27 +408,31 @@ public class CadastroClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-        if (!novo) {
-            if (!atual.apagaCliente())
-                    Funcoes.mensagemErro("Não foi possivel apagar o Cliente do banco de dados. ");
-        }
-        try {
-            atuaIds();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (atualIds.last())
-                atual = new Cliente(atualIds.getInt(1), this.con);
-            else {
-                atual = new Cliente(con);
-                setAtual();
-                novo = true; 
+        int i = JOptionPane.showConfirmDialog(this, "Será apagado o cliente atual.", "Apagar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (i==JOptionPane.YES_OPTION){
+            if (!novo) {
+                if (!atual.apagaCliente())
+                        Funcoes.mensagemErro("Não foi possivel apagar o Cliente do banco de dados. ");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                atuaIds();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (atualIds.last()) {
+                    atual = new Cliente(atualIds.getInt(1), this.con);
+                    setAtual();
+                }
+                else {
+                    atual = new Cliente(con);
+                    setAtual();
+                    novo = true; 
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        
     }//GEN-LAST:event_btDeletarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
