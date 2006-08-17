@@ -307,7 +307,6 @@ public class CadastroUsuarios extends JPanel{
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {
         if (novo) {
             GregorianCalendar gc = new GregorianCalendar();
-         
             Usuario usr = new Usuario(gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH), txtNome.getText(), txtLogin.getText(),
                   txtCargo.getText(), "", con);
             try{

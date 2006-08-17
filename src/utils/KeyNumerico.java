@@ -14,10 +14,18 @@ public class KeyNumerico implements KeyListener{
 
     public void keyTyped(KeyEvent e) {
         int k=e.getKeyChar();
-        if((k>47 && k<58)) {
-        } else { 
-            e.setKeyChar((char)KeyEvent.VK_CLEAR);
+        if (inteiro){
+            if((k>47 && k<58)) {
+            } else { 
+                e.setKeyChar((char)KeyEvent.VK_CLEAR);
+            }
+        }else{
+            if((k>47 && k<58) || k==46) {
+            } else { 
+                e.setKeyChar((char)KeyEvent.VK_CLEAR);
+            }
         }
+        
     }
    
 

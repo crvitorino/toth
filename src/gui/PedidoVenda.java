@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.GregorianCalendar;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import utils.Funcoes;
@@ -96,10 +97,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         txtMunicipio.setText(atual.getCliente().getMunicipio());
         txtEstado.setText(atual.getCliente().getEstado());
         txtFone.setText(atual.getCliente().getFone1());
-        txtFone2.setText(atual.getCliente().getFone2());
-
-        
-        
+        txtFone2.setText(atual.getCliente().getFone2());   
     }
     protected void atuaIds() throws SQLException {
         try {
@@ -142,8 +140,8 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         txtFone = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtFone2 = new javax.swing.JTextField();
-        tabela = new javax.swing.JTable(); 
-        scroll = new javax.swing.JScrollPane(tabela);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbItens = new javax.swing.JTable();
         btPrim = new javax.swing.JButton();
         btAnt = new javax.swing.JButton();
         btProx = new javax.swing.JButton();
@@ -220,10 +218,13 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
 
         txtFone2.setOpaque(false);
 
-        tabela.setModel(tbModel);
-        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        scroll.setPreferredSize(new Dimension(650, 115));
+        jScrollPane1.setAutoscrolls(true);
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(552, 130));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(552, 130));
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.setRequestFocusEnabled(false);
+        tbItens.setModel(tbModel);
+        jScrollPane1.setViewportView(tbItens);
 
         btPrim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btPrim.gif")));
         btPrim.addActionListener(new java.awt.event.ActionListener() {
@@ -285,6 +286,11 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
 
         btEfetivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btOk.gif")));
         btEfetivar.setText("Efetivar");
+        btEfetivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEfetivarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btCancelar.gif")));
         btCancelar.setText("Cancelar");
@@ -316,7 +322,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(lbForma)
-                                    .add(txtForma, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
+                                    .add(txtForma, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                         .add(29, 29, 29)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -329,7 +335,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                 .add(btCancelar)
                                 .add(txtVlTotal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                    .add(scroll, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 531, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 531, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
@@ -345,7 +351,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
                                 .add(jLabel1)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(txtPedido, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 114, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 162, Short.MAX_VALUE)
                                 .add(jLabel2)
                                 .add(12, 12, 12)))
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -368,7 +374,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel5)
-                            .add(txtCpf, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)))
+                            .add(txtCpf, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(txtEndereco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 316, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -391,8 +397,8 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
                             .add(layout.createSequentialGroup()
                                 .add(jLabel7)
                                 .add(96, 96, 96))
-                            .add(txtNumero, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                            .add(txtFone2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))))
+                            .add(txtNumero, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                            .add(txtFone2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -451,7 +457,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
                             .add(txtFone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(txtFone2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(scroll, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lbForma)
@@ -472,6 +478,14 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         );
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btEfetivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEfetivarActionPerformed
+        try{
+            atual.gravarDadosNovo();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btEfetivarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
 // TODO add your handling code here:
@@ -520,6 +534,7 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btPrimActionPerformed
     
     public void recebeId(int cod) {
+        
         GregorianCalendar gc = new GregorianCalendar();
         atual = new Pedido(cod, gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH), con);
         setClienteAtual();
@@ -527,18 +542,22 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     }
     public void recebeIdProduto(int cod) {
         Produto atualProd =  null;
+        double des;
         try {
             atualProd = new Produto(cod, con);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        atual.addItem(atualProd);
+        
+        int qtd = Integer.parseInt(JOptionPane.showInputDialog(this,"Quantidade:","Quantidade:",JOptionPane.QUESTION_MESSAGE));
+        int desc = Integer.parseInt(JOptionPane.showInputDialog(this,"Desconto:","Desconto:",JOptionPane.QUESTION_MESSAGE));
+        atual.addItem(atualProd,qtd,desc);
         tbModel.setDataVector(atual.getItens(), colunas);
         
-        
-        
-        
-    }
+        //des = (Double)tabela.getValueAt(1,5)/100;
+        //tabela.setValueAt(atual.CalculaValorUnitario((Double)tabela.getValueAt(1,4),des),1,6);
+            
+  }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdd;
@@ -564,10 +583,10 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane scroll;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbDesc;
     private javax.swing.JLabel lbForma;
-    private javax.swing.JTable tabela;
+    private javax.swing.JTable tbItens;
     private javax.swing.JTextField txtCodCliente;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtData;

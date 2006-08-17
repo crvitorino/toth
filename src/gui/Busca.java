@@ -1,11 +1,4 @@
-/*
- * Busca.java
- *
- * Created on 16 de Agosto de 2006, 12:14
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
+
 
 package gui;
 

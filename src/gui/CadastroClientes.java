@@ -549,7 +549,7 @@ public class CadastroClientes extends javax.swing.JPanel {
     protected boolean validaDados() {
         if (CpfCnpj.isValid(txtCPF.getText()))
             return true;
-        JOptionPane.showMessageDialog(null, "Cpf invalido", "Erro em arquivo.", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Cpf/Cnpj inválido", "Erro em arquivo.", JOptionPane.ERROR_MESSAGE);
         return false;
     }
     protected void atuaIds() throws SQLException {

@@ -1,12 +1,3 @@
-/*
- * BuscaCliente.java
- *
- * Created on 15 de Agosto de 2006, 10:05
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package gui;
 
 import Componentes.ModeloTabela;

@@ -1,10 +1,3 @@
-/*
- * Pedido.java
- *
- * Criado em 13 de Agosto de 2006, 14:08
- *
- */
-
 package empresa;
 
 import app.ConSQL;
@@ -25,8 +18,7 @@ public class Pedido {
     private String data, formaPag;
     private Cliente cliente;
     private ConSQL con;
-    
-    /** Creates a new instance of Pedido */
+
     public Pedido(int idCliente, String data, ConSQL con) {
         this.idCliente = idCliente;
         this.data = data;
@@ -39,9 +31,9 @@ public class Pedido {
         }
     }
     public void gravarDadosNovo() throws SQLException{
-        String[] sql = new String[itens.size()]; 
+        String[] sql = new String[itens.size()+1]; 
         sql[0] = "insert INTO pedido VALUES (null,'"+idCliente+"','"+data+"','"+qtdade+"','"+formaPag+"','"+vlTotal+"','"+desc+"')";
-        for (int i = 1; i<itens.size(); i++) {
+        for (int i = 1; i<=itens.size(); i++) {
             Vector vi = (Vector)itens.get(i-1);
             sql[i] = "INSERT INTO itempedido VALUES("+id+", "+vi.get(0)+", "+vi.get(2)+", "+vi.get(5)+", "+vi.get(4)+")";
         }
@@ -82,8 +74,8 @@ public class Pedido {
         this.con = con;
         itens = new Vector();
     }
-    public void addItem(Produto itm) {
-        Vector vec = itm.getVector();
+    public void addItem(Produto itm,int qtd, int desc) {
+        Vector vec = itm.getVector(qtd,desc);
         itens.addElement(vec);
         
         
@@ -124,6 +116,10 @@ public class Pedido {
     }
     public String getFormaPag() {
         return formaPag;
+    }
+    
+    public double CalculaValorUnitario(double valor, double desc){
+        return valor*(1-desc);
     }
     
     
