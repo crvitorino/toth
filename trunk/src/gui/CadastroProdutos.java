@@ -31,15 +31,15 @@ public class CadastroProdutos extends javax.swing.JPanel {
                 atual = new Produto(con);
                 novo = true;
             }
-                
+             
         } catch (SQLException e) {
             e.printStackTrace();
         }
         initComponents();
-        txtCusto.addKeyListener(new KeyNumerico(true));
-        txtVenda.addKeyListener(new KeyNumerico(true));
-        txtEstoqueAtual.addKeyListener(new KeyNumerico(true));
-        txtEstoqueMin.addKeyListener(new KeyNumerico(true));
+        txtCusto.addKeyListener(new KeyNumerico(false));
+        txtVenda.addKeyListener(new KeyNumerico(false));
+        txtEstoqueAtual.addKeyListener(new KeyNumerico(false));
+        txtEstoqueMin.addKeyListener(new KeyNumerico(false));
         
         if (CadastroProdutos.class.getResource("/images/btOk.gif") != null) {
             this.btGravar.setIcon(new ImageIcon(CadastroProdutos.class.getResource("/images/btOk.gif")));

@@ -55,7 +55,7 @@ public class Produto {
         
         
       }
-    public Vector getVector() {
+    public Vector getVector(int qtd,int desc) {
         String sql = "select * from produtos where id="+codigo;
         Vector currentRow =  null;
         try{
@@ -65,7 +65,27 @@ public class Produto {
         
             ResultSetMetaData rsmd = rs.getMetaData();
             currentRow = new Vector(); 
-            for (int i = 1; i <= rsmd.getColumnCount(); ++i) 
+            for (int i = 1; i <= 7; ++i) {
+                if (i == 3) {
+                    currentRow.addElement(qtd);
+                    continue;
+                }    
+                if (i ==5) {
+                    currentRow.addElement(desc);
+                    continue;
+                }  
+                if (i == 4) {
+                    currentRow.addElement(new Double(rs.getDouble(8)));
+                    continue;
+                }
+                if (i == 6) {
+                    currentRow.addElement(Double.parseDouble(currentRow.get(3).toString())*(100-desc)/100);
+                    continue;
+                }
+                if (i == 7) {
+                    currentRow.addElement(Double.parseDouble(currentRow.get(5).toString())*qtd);
+                    continue;
+                }
                 switch(rsmd.getColumnType(i)) { 
                     case Types.VARCHAR: currentRow.addElement(rs.getString(i)); 
                     break; 
@@ -79,6 +99,7 @@ public class Produto {
                     break;
                     default: System.out.println("Tipo dos Dados: " + rsmd.getColumnTypeName(i)); 
                 }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
