@@ -1,0 +1,20 @@
+Coisas a fazer
+
+1. Validacao para deletar
+2. Deixar apenas uma janela
+3. Calendário
+4. Relatórios
+5. Ajuda>>sobre>>topicos de ajuda
+6. teclas mnemonicas >>  btCancelar.setMnemonic()  
+7. pop-up - tool tip text
+8. entrada
+9. criar valores bunitinhos de teste
+10. Busca nos clientes, e produtos
+11. limpar qdo for novo (produto)
+12. colocar validacaum qtd produto em estoque
+13. diminuir a qtd quando vende
+14. fazer os logos
+15. fazer o diagrama de classe
+16. nao esquecer de fazer as coisas acima
+17. efetivar/cancelar do pedido
+18. 
