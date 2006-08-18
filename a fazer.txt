@@ -1,8 +1,8 @@
 Coisas a fazer
 
 1. Validacao para deletar - OK - Fernando Dettoni
-2. Deixar apenas uma janela
-3. Calendário
+2. Deixar apenas uma janela - Nem precisa fazer
+3. Calendário 
 4. Relatórios
 5. Ajuda>>sobre>>topicos de ajuda
 6. teclas mnemonicas >>  btCancelar.setMnemonic()  
@@ -17,4 +17,4 @@ Coisas a fazer
 15. fazer o diagrama de classe
 16. nao esquecer de fazer as coisas acima
 17. efetivar/cancelar do pedido
-18. 
+18. Dar enfase ao tópico 16
