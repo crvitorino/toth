@@ -33,15 +33,27 @@ public class Pedido {
     public void gravarDadosNovo() throws SQLException{
         String[] sql = new String[itens.size()+1]; 
         sql[0] = "insert INTO pedido VALUES (null,'"+idCliente+"','"+data+"','"+qtdade+"','"+formaPag+"','"+vlTotal+"','"+desc+"')";
+        Statement stmt = con.getStatement();
+        try {
+            ResultSet rs = stmt.executeQuery("select id from pedido");
+            rs.last();
+            this.id = rs.getInt(1)+1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         for (int i = 1; i<=itens.size(); i++) {
             Vector vi = (Vector)itens.get(i-1);
             sql[i] = "INSERT INTO itempedido VALUES("+id+", "+vi.get(0)+", "+vi.get(2)+", "+vi.get(5)+", "+vi.get(4)+")";
+            Produto pro = new Produto(Integer.parseInt(vi.get(0).toString()), con);
+            pro.atuaQtdade(Math.abs(Double.parseDouble(vi.get(2).toString()))*(-1));
         }
-        Statement stmt = con.getStatement();
+        
         try {
-            for (int i=0; i<itens.size(); i++)
+            for (int i=0; i<itens.size()+1; i++){
                 stmt.executeUpdate(sql[i]);
+                ResultSet rs = stmt.executeQuery("select * from itempedido where idpedido = "+2);
             }
+        }
         catch (SQLException E) {
 	    E.printStackTrace();
 	}
@@ -65,6 +77,11 @@ public class Pedido {
             this.formaPag = rs.getString(5);
             this.vlTotal = rs.getDouble(6);
             this.desc = rs.getDouble(7);
+            rs = stmt.executeQuery("select * from itempedido where idpedido ="+id);
+            while(rs.next()){
+                Produto pro = new Produto(rs.getInt(2), con);
+                itens.addElement(pro.getVector(rs.getDouble(3), rs.getDouble(5)));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,17 +91,31 @@ public class Pedido {
         this.con = con;
         itens = new Vector();
     }
-    public void addItem(Produto itm,int qtd, int desc) {
+    public void apagaItem(int id) {
+        Vector vec = (Vector)itens.get(id);
+        vlTotal-=Double.parseDouble(vec.get(6).toString());
+        itens.remove(id);
+        
+    }
+    public void addItem(Produto itm,double qtd, double desc) {
         Vector vec = itm.getVector(qtd,desc);
         itens.addElement(vec);
+        vlTotal+=Double.parseDouble(vec.get(6).toString());
         
         
     }
-    public boolean apagaUsuario() {
-        String sql = "delete from pedido where id = "+id;
+    public Vector getItens() {
+        return itens;
+    }
+    public boolean apagaPedido() {
+        String[] sql = new String[2]; 
+        sql[0]="delete from pedido where id = "+id;
+        sql[1]="delete from itempedido where idpedido="+id;
+        
         Statement stmt = con.getStatement();
         try {
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql[0]);
+            stmt.executeUpdate(sql[1]);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -92,9 +123,6 @@ public class Pedido {
         }
         return true;
         
-    }
-    public Vector getItens() {
-        return itens;
     }
     public Cliente getCliente() {
         return cliente;

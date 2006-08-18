@@ -38,11 +38,13 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         String[] cols = {"Código", "Produto", "Quantidade", "Val. Bruto", "Desc.", "Val. Unit", "Val. Total"};
         for (int i=0; i<7; i++)
             colunas.addElement(cols[i]);
-        tbModel =  new DefaultTableModel(new Object [][] { }, cols);
+        
         try {
             atuaIds();
-            if (atualIds.first())
+            if (atualIds.first()) {
                 atual = new Pedido(atualIds.getInt(1), con);
+                
+            }
             else {
                 atual = new Pedido(con);
                 novo = true; 
@@ -50,9 +52,10 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        tbModel =  new DefaultTableModel(atual.getItens(), colunas);
         
         
-        this.con = con;
+
         initComponents();
         //setAtual();
         txtNome.setEditable(false);
@@ -72,11 +75,19 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
                 recebeId(Integer.parseInt(txtCodCliente.getText()));
             }
         });
-        
+        if (!novo) {
+                btEfetivar.setEnabled(false);
+                btCancelar.setEnabled(false);
+                btAdd.setEnabled(false);
+                btDelIt.setEnabled(false);
+                btBusca.setEnabled(false);
+                setPedidoAtual();
+        }
+                
         
 
     }
-    protected void setClienteAtual() {
+    protected void setPedidoAtual() {
         txtPedido.setText(String.valueOf(atual.getId()));
         txtData.setText(Funcoes.trataData(atual.getData()));
         txtCodCliente.setText(String.valueOf(atual.getIdCliente()));
@@ -89,15 +100,29 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
         txtEstado.setText(atual.getCliente().getEstado());
         txtFone.setText(atual.getCliente().getFone1());
         txtFone2.setText(atual.getCliente().getFone2());
+        tbModel =  new DefaultTableModel(atual.getItens(), colunas);
+        tbItens.setModel(tbModel);
+        txtVlTotal.setText(new Double(atual.getVlTotal()).toString());
 
-        txtNome.setText(atual.getCliente().getNome());
-        txtCpf.setText(atual.getCliente().getCpf());  
-        txtEndereco.setText(atual.getCliente().getEndereco());
-        txtNumero.setText(atual.getCliente().getNumero());
-        txtMunicipio.setText(atual.getCliente().getMunicipio());
-        txtEstado.setText(atual.getCliente().getEstado());
-        txtFone.setText(atual.getCliente().getFone1());
-        txtFone2.setText(atual.getCliente().getFone2());   
+  
+    }
+    protected void limpaCampos() {
+        txtPedido.setText("");
+        txtData.setText("");
+        txtCodCliente.setText("");
+
+        txtNome.setText("");
+        txtCpf.setText("");
+        txtEndereco.setText("");
+        txtNumero.setText("");
+        txtMunicipio.setText("");
+        txtEstado.setText("");
+        txtFone.setText("");
+        txtFone2.setText("");
+        tbModel =  new DefaultTableModel(atual.getItens(), colunas);
+        tbItens.setModel(tbModel);
+        txtVlTotal.setText("");
+        
     }
     protected void atuaIds() throws SQLException {
         try {
@@ -481,18 +506,52 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
 
     private void btEfetivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEfetivarActionPerformed
         try{
-            atual.gravarDadosNovo();
-        }catch(SQLException e){
+            int i = JOptionPane.showConfirmDialog(this, "Você realmente quer efetivar este pedido?", "Efetivar?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (i == JOptionPane.YES_OPTION)
+                atual.gravarDadosNovo();
+            }catch(SQLException e){
+                e.printStackTrace();
+        }
+        btEfetivar.setEnabled(false);
+        btCancelar.setEnabled(false);
+        btAdd.setEnabled(false);
+        btDelIt.setEnabled(false);
+        btBusca.setEnabled(false);
+        try {
+            atuaIds();
+             if (atualIds.last()) {
+                atual = new Pedido(atualIds.getInt(1), con);
+          
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        setPedidoAtual();
+        
     }//GEN-LAST:event_btEfetivarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-// TODO add your handling code here:
+        if (novo) {
+            try {
+            if (atualIds.last())
+                atual = new Pedido(atualIds.getInt(1), this.con);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            setPedidoAtual();
+        } else {
+            setPedidoAtual();
+        }        
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btDelItActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDelItActionPerformed
-// TODO add your handling code here:
+        int indice = tbItens.getSelectedRow();
+        if (indice > -1) {
+            atual.apagaItem(indice);
+            setPedidoAtual();
+        } else 
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi selecionado!","Produto não selecionado", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btDelItActionPerformed
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
@@ -510,34 +569,95 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btBuscaActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-// TODO add your handling code here:
+        atual = new Pedido(con);
+        novo = true;
+        limpaCampos();
+        btEfetivar.setEnabled(true);
+        btCancelar.setEnabled(true);
+        btAdd.setEnabled(true);
+        btDelIt.setEnabled(true);
+        btBusca.setEnabled(true);
+        btNovo.setEnabled(false);
+        
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-// TODO add your handling code here:
+        int i = JOptionPane.showConfirmDialog(this, "Será apagado o pedido atual.", "Apagar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (i==JOptionPane.YES_OPTION){
+            if (!novo) {
+                if (!atual.apagaPedido())
+                        Funcoes.mensagemErro("Não foi possivel apagar o Cliente do banco de dados. ");
+            }
+            try {
+                atuaIds();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (atualIds.last()) {
+                    atual = new Pedido(atualIds.getInt(1), this.con);
+                    setPedidoAtual();
+                }
+                else {
+                    atual = new Pedido(con);
+                    setPedidoAtual();
+                    novo = true; 
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btDeletarActionPerformed
 
     private void btUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUltActionPerformed
-// TODO add your handling code here:
+        try {
+            if (atualIds.last())
+                atual = new Pedido(atualIds.getInt(1), this.con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setPedidoAtual();
     }//GEN-LAST:event_btUltActionPerformed
 
     private void btProxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProxActionPerformed
-// TODO add your handling code here:
+        try {
+            if (atualIds.next())
+                atual = new Pedido(atualIds.getInt(1), this.con);
+            else
+                atualIds.previous();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setPedidoAtual();
     }//GEN-LAST:event_btProxActionPerformed
 
     private void btAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAntActionPerformed
-// TODO add your handling code here:
+        try {
+            if (atualIds.previous())
+                atual = new Pedido(atualIds.getInt(1), this.con);
+            else
+                atualIds.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setPedidoAtual();
     }//GEN-LAST:event_btAntActionPerformed
 
     private void btPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrimActionPerformed
-// TODO add your handling code here:
+        try {
+            if (atualIds.first())
+                atual = new Pedido(atualIds.getInt(1), this.con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setPedidoAtual();
     }//GEN-LAST:event_btPrimActionPerformed
     
     public void recebeId(int cod) {
         
         GregorianCalendar gc = new GregorianCalendar();
         atual = new Pedido(cod, gc.get(gc.YEAR)+"-"+gc.get(gc.MONTH)+"-"+gc.get(gc.DAY_OF_MONTH), con);
-        setClienteAtual();
+        setPedidoAtual();
         
     }
     public void recebeIdProduto(int cod) {
@@ -549,10 +669,10 @@ public class PedidoVenda extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
         
-        int qtd = Integer.parseInt(JOptionPane.showInputDialog(this,"Quantidade:","Quantidade:",JOptionPane.QUESTION_MESSAGE));
-        int desc = Integer.parseInt(JOptionPane.showInputDialog(this,"Desconto:","Desconto:",JOptionPane.QUESTION_MESSAGE));
+        Double qtd = Double.parseDouble(JOptionPane.showInputDialog(this,"Quantidade:","Quantidade:",JOptionPane.QUESTION_MESSAGE).toString());
+        Double desc = Double.parseDouble(JOptionPane.showInputDialog(this,"Desconto:","Desconto:",JOptionPane.QUESTION_MESSAGE).toString());
         atual.addItem(atualProd,qtd,desc);
-        tbModel.setDataVector(atual.getItens(), colunas);
+        setPedidoAtual();
         
         //des = (Double)tabela.getValueAt(1,5)/100;
         //tabela.setValueAt(atual.CalculaValorUnitario((Double)tabela.getValueAt(1,4),des),1,6);
