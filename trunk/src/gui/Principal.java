@@ -19,6 +19,8 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    
+    
     private ConSQL con;
     public Principal(ConSQL con) {
         this.con = con;
@@ -138,11 +140,11 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mPedidoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPedidoVendaActionPerformed
-        PedidoVenda intPed = new PedidoVenda(con, this); 
-        intDesk.add(intPed);
-        intPed.pack();
-        intPed.setVisible(true);
-        
+            intPed = new PedidoVenda(con, this); 
+            intDesk.add(intPed);
+            intPed.pack();
+            intPed.setVisible(true);
+       
     }//GEN-LAST:event_mPedidoVendaActionPerformed
 
     private void iprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iprodutosActionPerformed
@@ -181,7 +183,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mUtilitariosActionPerformed
 
     private void iCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iCalcActionPerformed
-        Calc calc = new Calc();
+        calc = new Calc();
         intDesk.add(calc);
         calc.pack();
         calc.setVisible(true);
@@ -215,8 +217,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar menu;
     private javax.swing.JLabel status1;
     // End of variables declaration//GEN-END:variables
-    private javax.swing.JInternalFrame intClientes;
-    private javax.swing.JInternalFrame intFornecedor;
-    private javax.swing.JInternalFrame intUsuarios;
-    private javax.swing.JInternalFrame intProdutos;
+    private javax.swing.JInternalFrame intClientes = null;
+    private javax.swing.JInternalFrame intFornecedor = null;
+    private javax.swing.JInternalFrame intUsuarios = null;
+    private javax.swing.JInternalFrame intProdutos = null;
+    private Calc calc = null;
+    private javax.swing.JInternalFrame intPed = null;
 }

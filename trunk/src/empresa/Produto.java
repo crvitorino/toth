@@ -55,7 +55,7 @@ public class Produto {
         
         
       }
-    public Vector getVector(int qtd,int desc) {
+    public Vector getVector(double qtd,double desc) {
         String sql = "select * from produtos where id="+codigo;
         Vector currentRow =  null;
         try{
@@ -66,18 +66,24 @@ public class Produto {
             ResultSetMetaData rsmd = rs.getMetaData();
             currentRow = new Vector(); 
             for (int i = 1; i <= 7; ++i) {
+                if (i == 1){
+                    currentRow.addElement(new Integer(rs.getInt(1)));
+                }
+                if (i == 2){
+                    currentRow.addElement(new String(rs.getString(2)));
+                }                
                 if (i == 3) {
                     currentRow.addElement(qtd);
                     continue;
                 }    
-                if (i ==5) {
-                    currentRow.addElement(desc);
-                    continue;
-                }  
                 if (i == 4) {
                     currentRow.addElement(new Double(rs.getDouble(8)));
                     continue;
                 }
+                if (i ==5) {
+                    currentRow.addElement(desc);
+                    continue;
+                }  
                 if (i == 6) {
                     currentRow.addElement(Double.parseDouble(currentRow.get(3).toString())*(100-desc)/100);
                     continue;
@@ -86,19 +92,8 @@ public class Produto {
                     currentRow.addElement(Double.parseDouble(currentRow.get(5).toString())*qtd);
                     continue;
                 }
-                switch(rsmd.getColumnType(i)) { 
-                    case Types.VARCHAR: currentRow.addElement(rs.getString(i)); 
-                    break; 
-                    case Types.INTEGER:currentRow.addElement(new Integer(rs.getInt(i))); 
-                    break; 
-                    case Types.DOUBLE:currentRow.addElement(new Double(rs.getDouble(i))); 
-                    break;
-                    case Types.BOOLEAN:currentRow.addElement(new Boolean(rs.getBoolean(i))); 
-                    break;
-                    case Types.DATE:currentRow.addElement(new String(rs.getString(i))); 
-                    break;
-                    default: System.out.println("Tipo dos Dados: " + rsmd.getColumnTypeName(i)); 
-                }
+                
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,7 +147,7 @@ public class Produto {
      
     public void update() throws SQLException{
         String sql = "update produtos set descricao='"+descricao+"',ativo ="+ativo+",fabricante='"+fabricante+"',grupo='"+grupo+"',custo='"+custo+"',venda='"+
-                        venda+"',estoqueatual='"+estoqueatual+"',estoquemin='"+estoquemin;
+                        venda+"',estoqueatual='"+estoqueatual+"',estoquemin='"+estoquemin+"' where id = "+codigo;
         Statement stmt = con.getStatement();
         try {
             stmt.executeUpdate(sql);
@@ -162,6 +157,14 @@ public class Produto {
 	}
  
     }
+   public void atuaQtdade(double qtd) {
+       this.estoqueatual+=qtd;
+       try{
+            update();
+       } catch(SQLException e) {
+           e.printStackTrace();
+       }
+   }
    public void setDescricao(String Descricao){
         this.descricao = Descricao;
     }
