@@ -7,7 +7,9 @@
 package gui;
 import app.ConSQL;
 import java.awt.Dimension;
+import java.sql.SQLException;
 import javax.swing.*;
+import relatorios.RelatorioEstoque;
 
 
 /**
@@ -45,6 +47,8 @@ public class Principal extends javax.swing.JFrame {
         iUsuarios = new javax.swing.JMenuItem();
         mMovimento = new javax.swing.JMenu();
         mPedidoVenda = new javax.swing.JMenuItem();
+        mRelatorios = new javax.swing.JMenu();
+        iRelatorioEstoque = new javax.swing.JMenuItem();
         mUtilitarios = new javax.swing.JMenu();
         iCalc = new javax.swing.JMenuItem();
         mAjuda = new javax.swing.JMenu();
@@ -113,6 +117,18 @@ public class Principal extends javax.swing.JFrame {
 
         menu.add(mMovimento);
 
+        mRelatorios.setText("Relat\u00f3rios");
+        iRelatorioEstoque.setText("Relat\u00f3rio de Estoque");
+        iRelatorioEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iRelatorioEstoqueActionPerformed(evt);
+            }
+        });
+
+        mRelatorios.add(iRelatorioEstoque);
+
+        menu.add(mRelatorios);
+
         mUtilitarios.setText("Utilit\u00e1rios");
         mUtilitarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +154,14 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void iRelatorioEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iRelatorioEstoqueActionPerformed
+        try {
+            new RelatorioEstoque(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_iRelatorioEstoqueActionPerformed
 
     private void mPedidoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPedidoVendaActionPerformed
             intPed = new PedidoVenda(con, this); 
@@ -205,6 +229,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem iCalc;
     private javax.swing.JMenuItem iClientes;
+    private javax.swing.JMenuItem iRelatorioEstoque;
     private javax.swing.JMenuItem iUsuarios;
     private javax.swing.JMenuItem ifornecedor;
     private javax.swing.JDesktopPane intDesk;
@@ -213,6 +238,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mCadastro;
     private javax.swing.JMenu mMovimento;
     private javax.swing.JMenuItem mPedidoVenda;
+    private javax.swing.JMenu mRelatorios;
     private javax.swing.JMenu mUtilitarios;
     private javax.swing.JMenuBar menu;
     private javax.swing.JLabel status1;
