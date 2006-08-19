@@ -5,7 +5,7 @@
  *
  */
 package app;
-import gui.Principal;
+import gui.Login;
 import javax.swing.UIManager;
 
 /**
@@ -31,7 +31,7 @@ public class Main {
         catch (Exception e) {
             e.printStackTrace();
         }
-        Principal principal = new Principal(con);
+        Login principal = new Login(con);
         principal.pack();
         principal.setVisible(true);
 
