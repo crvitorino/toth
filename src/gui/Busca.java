@@ -24,7 +24,9 @@ public class Busca extends JInternalFrame{
     protected Vector colunas;
     protected JButton btPesquisar, btSelecionar;
     protected ConSQL con;
-    protected PedidoVenda pedido;
+    protected JInternalFrame pedido;
+
+    
     
     /** Creates a new instance of Busca */
     public Busca(String title) {

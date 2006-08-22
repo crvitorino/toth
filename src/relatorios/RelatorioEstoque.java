@@ -43,7 +43,7 @@ public class RelatorioEstoque {
             JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
             Map parameters = new HashMap();
             JasperFillManager.fillReportToFile( "relatorios/Estoque.jasper", parameters, jrRS );
-            JasperViewer.viewReport( "relatorios/Estoque.jrprint", false );
+            JasperViewer.viewReport( "relatorios/Estoque.jrprint",false, false);
         } catch (Exception e) {
             e.printStackTrace();
         }

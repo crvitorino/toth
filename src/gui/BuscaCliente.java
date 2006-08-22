@@ -37,9 +37,10 @@ import javax.swing.ListSelectionModel;
 public class BuscaCliente extends Busca{
     
     /** Creates a new instance of BuscaCliente */
-    
+   
     private JLabel lbNome, lbCPF;
     private JTextField txtNome, txtCPF;
+    private PedidoVenda pedido;
     public BuscaCliente(ConSQL con, PedidoVenda pedido) {
         super("Busca de Clientes");
         this.pedido = pedido;

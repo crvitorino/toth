@@ -7,8 +7,8 @@
 package gui;
 import app.ConSQL;
 import java.awt.Dimension;
-import java.sql.SQLException;
 import javax.swing.*;
+import relatorios.RelatorioClientes;
 import relatorios.RelatorioEstoque;
 
 
@@ -47,8 +47,10 @@ public class Principal extends javax.swing.JFrame {
         iUsuarios = new javax.swing.JMenuItem();
         mMovimento = new javax.swing.JMenu();
         mPedidoVenda = new javax.swing.JMenuItem();
+        mPedidoCompra = new javax.swing.JMenuItem();
         mRelatorios = new javax.swing.JMenu();
         iRelatorioEstoque = new javax.swing.JMenuItem();
+        iRelatorioCliente = new javax.swing.JMenuItem();
         mUtilitarios = new javax.swing.JMenu();
         iCalc = new javax.swing.JMenuItem();
         mAjuda = new javax.swing.JMenu();
@@ -115,6 +117,15 @@ public class Principal extends javax.swing.JFrame {
 
         mMovimento.add(mPedidoVenda);
 
+        mPedidoCompra.setText("Pedido de Compra");
+        mPedidoCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mPedidoCompraActionPerformed(evt);
+            }
+        });
+
+        mMovimento.add(mPedidoCompra);
+
         menu.add(mMovimento);
 
         mRelatorios.setText("Relat\u00f3rios");
@@ -126,6 +137,15 @@ public class Principal extends javax.swing.JFrame {
         });
 
         mRelatorios.add(iRelatorioEstoque);
+
+        iRelatorioCliente.setText("Clientes");
+        iRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iRelatorioClienteActionPerformed(evt);
+            }
+        });
+
+        mRelatorios.add(iRelatorioCliente);
 
         menu.add(mRelatorios);
 
@@ -154,6 +174,21 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void iRelatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iRelatorioClienteActionPerformed
+ try {
+            new RelatorioClientes(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_iRelatorioClienteActionPerformed
+
+    private void mPedidoCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPedidoCompraActionPerformed
+            intPed = new PedidoEntrada(con, this); 
+            intDesk.add(intPed);
+            intPed.pack();
+            intPed.setVisible(true);
+    }//GEN-LAST:event_mPedidoCompraActionPerformed
 
     private void iRelatorioEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iRelatorioEstoqueActionPerformed
         try {
@@ -229,6 +264,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem iCalc;
     private javax.swing.JMenuItem iClientes;
+    private javax.swing.JMenuItem iRelatorioCliente;
     private javax.swing.JMenuItem iRelatorioEstoque;
     private javax.swing.JMenuItem iUsuarios;
     private javax.swing.JMenuItem ifornecedor;
@@ -237,6 +273,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mAjuda;
     private javax.swing.JMenu mCadastro;
     private javax.swing.JMenu mMovimento;
+    private javax.swing.JMenuItem mPedidoCompra;
     private javax.swing.JMenuItem mPedidoVenda;
     private javax.swing.JMenu mRelatorios;
     private javax.swing.JMenu mUtilitarios;

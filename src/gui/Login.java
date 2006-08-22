@@ -159,7 +159,6 @@ public class Login extends javax.swing.JFrame {
         String senhaEncr = Funcoes.criptografaSenha(senha);
         if (senhaEncr.equals(senhaBanco)){
             Principal principal = new Principal(con);
-            principal.setPreferredSize(new Dimension(700,500));
             principal.pack();
             principal.setVisible(true);
             try {
