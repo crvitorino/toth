@@ -158,6 +158,7 @@ public class Produto {
  
     }
    public void atuaQtdade(double qtd) {
+       
        this.estoqueatual+=qtd;
        try{
             update();

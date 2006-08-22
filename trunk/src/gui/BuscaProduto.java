@@ -31,7 +31,8 @@ public class BuscaProduto extends Busca{
     private JLabel lbNome, lbFab;
     private JButton btPesquisar, btSelecionar;
     private JTextField txtNome, txtFab;
-    public BuscaProduto(ConSQL con, PedidoVenda pedido) {
+    private Pedido pedido;
+    public BuscaProduto(ConSQL con, Pedido pedido) {
         super("Busca de Produtos");
         this.pedido = pedido;
         this.con = con;

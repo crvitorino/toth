@@ -7,7 +7,7 @@ Coisas a fazer
 5. Ajuda>>sobre>>topicos de ajuda
 6. teclas mnemonicas >>  btCancelar.setMnemonic()  
 7. pop-up - tool tip text
-8. entrada
+8. entrada - OK
 9. criar valores bunitinhos de teste
 10. Busca nos clientes, e produtos
 11. limpar qdo for novo (produto)

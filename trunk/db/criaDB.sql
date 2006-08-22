@@ -91,4 +91,18 @@ CREATE TABLE itempedido (
 	qtdade DOUBLE,
 	vlUnit DOUBLE,
 	desc DOUBLE);
+CREATE table pedidoentrada(
+	id integer identity,
+	idfornecedor integer not null,
+	data date not null,
+	qtdade integer,
+	formapag VARCHAR(60),
+	vlTotal DOUBLE,
+	desc DOUBLE);
+CREATE TABLE itempedidoentrada (
+	idpedido INTEGER,
+	idproduto INTEGER,
+	qtdade DOUBLE,
+	vlUnit DOUBLE,
+	desc DOUBLE);
 	
