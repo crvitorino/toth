@@ -37,7 +37,6 @@ public class Principal extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        status1 = new javax.swing.JLabel();
         intDesk = new javax.swing.JDesktopPane();
         menu = new javax.swing.JMenuBar();
         mCadastro = new javax.swing.JMenu();
@@ -53,16 +52,9 @@ public class Principal extends javax.swing.JFrame {
         iRelatorioCliente = new javax.swing.JMenuItem();
         mUtilitarios = new javax.swing.JMenu();
         iCalc = new javax.swing.JMenuItem();
-        mAjuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Toth Gest\u00e3o Comercial");
-        status1.setText("status");
-        status1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        status1.setAutoscrolls(true);
-        status1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        getContentPane().add(status1, java.awt.BorderLayout.SOUTH);
-
         intDesk.setAutoscrolls(true);
         intDesk.setFocusable(false);
         intDesk.setMaximumSize(new java.awt.Dimension(0, 0));
@@ -167,9 +159,6 @@ public class Principal extends javax.swing.JFrame {
 
         menu.add(mUtilitarios);
 
-        mAjuda.setText("Ajuda");
-        menu.add(mAjuda);
-
         setJMenuBar(menu);
 
         pack();
@@ -270,7 +259,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ifornecedor;
     private javax.swing.JDesktopPane intDesk;
     private javax.swing.JMenuItem iprodutos;
-    private javax.swing.JMenu mAjuda;
     private javax.swing.JMenu mCadastro;
     private javax.swing.JMenu mMovimento;
     private javax.swing.JMenuItem mPedidoCompra;
@@ -278,7 +266,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mRelatorios;
     private javax.swing.JMenu mUtilitarios;
     private javax.swing.JMenuBar menu;
-    private javax.swing.JLabel status1;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JInternalFrame intClientes = null;
     private javax.swing.JInternalFrame intFornecedor = null;
