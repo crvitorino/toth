@@ -1,0 +1,1 @@
+Sistema em java para o gerenciamento de um comércio, abrange funções como Cadastro de clientes, Controle de estoque e contas a pagar/receber.
